@@ -8,6 +8,13 @@ Thumbs.db
 *.swp
 *.swo
 
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
 # Logs
 *.log
 npm-debug.log*
@@ -16,8 +23,5 @@ npm-debug.log*
 .env
 .env.local
 
-# Build / Caches (für den Fall, dass später Tools dazukommen)
-node_modules/
-dist/
-.cache/
+# Vercel
 .vercel/

@@ -1,107 +1,100 @@
 # Emil Marinov · KI-Berater — Website
 
-Statische Website (HTML/CSS/JS) für **Emil Marinov**, KI-Berater für
-Unternehmen. Kein Build-Schritt, kein Framework. Jeder Static-Host
-funktioniert.
+Next.js 16 (App Router, TypeScript) mit React 19 und 3D-Hero-Szene
+(`react-three-fiber` + `three`).
 
-## Lokal ansehen
-
-Die Seite muss über einen kleinen Webserver geöffnet werden (nicht
-einfach `file://`), damit relative Pfade und der `fetch`-Aufruf des
-Formulars korrekt arbeiten.
-
-Eine der folgenden Varianten reicht:
+## Lokal starten
 
 ```bash
-# Python 3 (in jedem macOS / Linux standardmäßig vorhanden)
-python3 -m http.server 8080
-
-# Node, falls installiert
-npx serve .
-
-# PHP
-php -S localhost:8080
+npm install
+npm run dev
 ```
 
-Danach im Browser öffnen:
-
-```
-http://localhost:8080
-```
+Im Browser: **http://localhost:3000**
 
 ## Projektstruktur
 
 ```
 .
-├── index.html              ← Landingpage mit allen Abschnitten
-├── datenschutz.html        ← Platzhalterseite Datenschutz
-├── impressum.html          ← Platzhalterseite Impressum
-├── css/
-│   ├── reset.css           ← moderner CSS-Reset
-│   └── styles.css          ← Hauptstyles (Tokens, Sections, responsive)
-├── js/
-│   ├── nav.js              ← Mobile-Menü, Header-Scroll, Sprunglinks
-│   ├── reveal.js           ← dezente Scroll-Reveal-Animation
-│   └── form.js             ← Kontaktformular-Validierung + Versand
-├── assets/
+├── app/
+│   ├── layout.tsx              ← Root-Layout, Fonts, Metadata
+│   ├── page.tsx                ← Startseite (komponiert alle Sektionen)
+│   ├── globals.css             ← Gesamtes Styling, Dark-Theme
+│   ├── datenschutz/page.tsx
+│   └── impressum/page.tsx
+├── components/
+│   ├── SiteHeader.tsx          ← Sticky-Nav + Mobile-Menü
+│   ├── Hero.tsx                ← Hero (Text + Foto + 3D)
+│   ├── HeroScene.tsx           ← R3F-Canvas: Partikelfeld + Wireframe
+│   ├── LogoStrip.tsx
+│   ├── About.tsx
+│   ├── Services.tsx            ← 5 Leistungskarten
+│   ├── References.tsx
+│   ├── Domains.tsx
+│   ├── Contact.tsx             ← Formular mit Validierung
+│   ├── SiteFooter.tsx
+│   └── Reveal.tsx              ← Scroll-Reveal-Wrapper
+├── public/
+│   ├── emil-portrait.jpg
 │   ├── favicon.svg
-│   └── og-image.svg        ← Social-Sharing-Bild
-└── kiprofessor-website-texte.md  ← Quelltexte (Referenz)
+│   └── og-image.svg
+├── kiprofessor-website-texte.md  ← Quelltexte (Referenz)
+├── next.config.ts
+├── tsconfig.json
+└── package.json
 ```
+
+## 3D bearbeiten / erweitern
+
+Die 3D-Szene lebt vollständig in [`components/HeroScene.tsx`](./components/HeroScene.tsx).
+Sie wird in `Hero.tsx` per `dynamic(... { ssr: false })` geladen, weil
+three.js WebGL/DOM braucht.
+
+Aktuell enthält die Szene zwei Elemente:
+
+- `ParticleField` — ~1400 Punkte, leuchten in Cyan/Grau, mit Maus-Parallax
+- `WireFrameShape` — langsam rotierender Wireframe-Icosaeder
+
+Weitere 3D-Objekte fügst du als zusätzliche Komponenten in derselben Datei
+ein und renderst sie innerhalb von `<Canvas>` in `HeroScene`. Helper aus
+`@react-three/drei` (Float, Stars, MeshTransmissionMaterial, …) sind bereits
+installiert.
 
 ## Kontaktformular anbinden
 
-Aktuell simuliert das Formular nur einen Versand und zeigt eine
-Erfolgsmeldung. Der echte Versand wird in einer einzigen Zeile in
-`js/form.js` aktiviert:
+Aktuell simuliert das Formular nur einen Versand. Echten Versand aktivieren
+in [`components/Contact.tsx`](./components/Contact.tsx):
 
-```js
-var SUBMIT_ENDPOINT = '';   // ← hier echte URL eintragen
+```ts
+const SUBMIT_ENDPOINT = "";   // ← echte URL eintragen
 ```
 
-Empfohlene Optionen:
+Optionen:
 
-| Option | Aufwand | Hinweis |
+| Variante | Aufwand | Hinweis |
 |---|---|---|
 | [Formspree](https://formspree.io) | sehr gering | URL `https://formspree.io/f/<id>` eintragen |
-| Vercel Function `/api/contact` | mittel | eigene Function in `api/contact.ts` |
-| Eigenes Backend | hoch | beliebige URL, JSON-Body wird per POST gesendet |
+| Vercel Function `/api/contact` | mittel | eigenen Route-Handler `app/api/contact/route.ts` anlegen |
+| Eigenes Backend | hoch | beliebige URL — Body ist JSON, POST |
 
-## Deployen
+## Deployen auf Vercel
 
-Die Seite ist eine reine Sammlung statischer Dateien — alle gängigen
-Static-Hosts funktionieren ohne Konfiguration.
+```bash
+npx vercel
+```
 
-### Netlify
-1. Repo auf Netlify verbinden.
-2. **Build command:** _leer lassen_
-3. **Publish directory:** `.` (Projektwurzel)
-
-### Vercel
-1. Repo auf Vercel importieren.
-2. **Framework Preset:** _Other_
-3. **Build command:** _leer_
-4. **Output directory:** _leer_ (Projektwurzel)
-
-### GitHub Pages
-1. Settings → Pages → Source = `main` / `/`.
+Oder Repo auf vercel.com importieren — Framework wird automatisch erkannt
+(Preset: Next.js, keine Konfiguration nötig).
 
 ## Inhalt
 
-Die fertigen deutschen Texte aller Abschnitte stehen in
-[`kiprofessor-website-texte.md`](./kiprofessor-website-texte.md) und sind
-direkt in `index.html` eingearbeitet. Platzhalter in `[eckigen Klammern]`
-sind absichtlich sichtbar und werden später ersetzt.
+Die Quelltexte aller Abschnitte stehen in
+[`kiprofessor-website-texte.md`](./kiprofessor-website-texte.md).
+Platzhalter in `[eckigen Klammern]` sind absichtlich sichtbar.
 
 ## Barrierefreiheit
 
-- Semantisches HTML5 (header, main, section, nav, footer, h1–h3)
-- Skip-Link zur Hauptnavigation
-- Sichtbarer Tastatur-Fokus (`:focus-visible`)
-- ARIA-Labels für Navigation und Formularstatus
-- `prefers-reduced-motion` wird respektiert
-- Farbkontraste folgen WCAG AA
-
-## Lizenz
-
-© 2026 Emil Marinov · alle Rechte vorbehalten.
+- Semantisches HTML5
+- Skip-Link, sichtbarer Tastatur-Fokus, ARIA-Labels
+- `prefers-reduced-motion` respektiert (Reveal-Animation und Smooth-Scroll)
+- 3D-Canvas ist `pointer-events: none` und nicht im Tab-Flow
