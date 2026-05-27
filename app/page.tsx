@@ -3,6 +3,7 @@ import { Hero }        from "@/components/Hero";
 import { LogoStrip }   from "@/components/LogoStrip";
 import { About }       from "@/components/About";
 import { Services }    from "@/components/Services";
+import { Showcase }    from "@/components/Showcase";
 import { References }  from "@/components/References";
 import { Domains }     from "@/components/Domains";
 import { Contact }     from "@/components/Contact";
@@ -17,6 +18,7 @@ export default function HomePage() {
         <LogoStrip />
         <About />
         <Services />
+        <Showcase />
         <References />
         <Domains />
         <Contact />

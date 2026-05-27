@@ -43,10 +43,10 @@ export function References() {
               <Reveal as="article" key={r.num} className="ref-block">
                 <span className="ref-num">{r.num}</span>
                 <div>
-                  <small>{r.tag}</small>
                   <h3>{r.title}</h3>
                   <p>{r.text}</p>
                 </div>
+                <small>{r.tag}</small>
               </Reveal>
             ))}
           </div>

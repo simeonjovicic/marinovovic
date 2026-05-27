@@ -34,8 +34,6 @@ const SERVICES = [
 ];
 
 export function Services() {
-  const [featured, ...services] = SERVICES;
-
   return (
     <section className="section section-alt" id="leistungen">
       <div className="container">
@@ -54,28 +52,17 @@ export function Services() {
           </Reveal>
         </div>
 
-        <div className="service-layout">
-          <Reveal as="article" className="service-feature">
-            <div className="service-topline">
-              <span>{featured.num}</span>
-              <small>{featured.label}</small>
-            </div>
-            <h3>{featured.title}</h3>
-            <p>{featured.text}</p>
-          </Reveal>
-
-          <div className="service-list">
-            {services.map((s) => (
-              <Reveal as="article" key={s.num} className="service-item">
-                <span className="service-num">{s.num}</span>
-                <div>
-                  <small>{s.label}</small>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+        <div className="service-list">
+          {SERVICES.map((s) => (
+            <Reveal as="article" key={s.num} className="service-item">
+              <span className="service-num">{s.num}</span>
+              <div>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </div>
+              <small>{s.label}</small>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
