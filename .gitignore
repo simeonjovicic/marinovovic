@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Lokale Umgebung
+.env
+.env.local
+
+# Build / Caches (für den Fall, dass später Tools dazukommen)
+node_modules/
+dist/
+.cache/
+.vercel/
