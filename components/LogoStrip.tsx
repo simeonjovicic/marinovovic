@@ -11,21 +11,15 @@ const AREAS = [
 export function LogoStrip() {
   return (
     <section className="logo-strip" aria-label="Wirkungsbereiche">
-      <div className="container logo-strip-inner">
-        <Reveal className="logo-strip-copy">
-          <span className="logo-strip-kicker">Wirkungsbereiche</span>
-          <p className="logo-strip-caption">
-            Tätig in Lehre, Forschung und Wirtschaft
-          </p>
+      <div className="container">
+        <Reveal className="logo-strip-row">
+          <span className="logo-strip-kicker">Tätig für</span>
+          <ul className="logo-strip-list">
+            {AREAS.map((area) => (
+              <li key={area}>{area}</li>
+            ))}
+          </ul>
         </Reveal>
-
-        <ul className="logo-chips">
-          {AREAS.map((area) => (
-            <Reveal as="li" key={area}>
-              <span>{area}</span>
-            </Reveal>
-          ))}
-        </ul>
       </div>
     </section>
   );

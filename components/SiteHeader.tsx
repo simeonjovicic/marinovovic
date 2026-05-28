@@ -49,6 +49,7 @@ export function SiteHeader() {
             <li><a href="#projekte">Projekte</a></li>
             <li><a href="#referenzen">Referenzen</a></li>
             <li><a href="#fachgebiete">Fachgebiete</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#kontakt" className="nav-cta">Kontakt</a></li>
           </ul>
         </nav>

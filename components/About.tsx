@@ -50,6 +50,11 @@ export function About() {
               künstlicher Intelligenz — akademisch fundiert, praktisch anwendbar.
             </p>
             <p>
+              In über zehn Jahren Lehre habe ich mehr als 50 Diplom- und
+              Abschlussprojekte fachlich begleitet — von der Themenfindung
+              über die methodische Tiefe bis zur Verteidigung.
+            </p>
+            <p>
               Für Unternehmen bin ich Berater, Sparringspartner und Umsetzer:
               Ich helfe dabei, KI-Projekte nicht beim Proof-of-Concept enden zu
               lassen, sondern in produktive, messbare Lösungen zu überführen.
@@ -77,12 +82,16 @@ export function About() {
               <dd>Jahre Lehrerfahrung</dd>
             </div>
             <div className="stat">
-              <dt><span className="stat-value">FH</span></dt>
-              <dd>&amp; HTL — Akademische Lehre</dd>
+              <dt><span className="stat-value">300<small>+</small></span></dt>
+              <dd>Studierende ausgebildet</dd>
             </div>
             <div className="stat">
-              <dt><span className="stat-value">KI</span></dt>
-              <dd>&amp; Mathematik — Fachgebiete</dd>
+              <dt><span className="stat-value">50<small>+</small></span></dt>
+              <dd>Diplomprojekte begleitet</dd>
+            </div>
+            <div className="stat">
+              <dt><span className="stat-value">15<small>+</small></span></dt>
+              <dd>Workshops &amp; Schulungen</dd>
             </div>
           </Reveal>
 

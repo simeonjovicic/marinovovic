@@ -1,5 +1,6 @@
 import { Reveal } from "./Reveal";
 import { InfiniteGridBg } from "./InfiniteGridBg";
+import { HeroTitle } from "./HeroTitle";
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 20 20" aria-hidden="true" className="btn-icon">
@@ -26,10 +27,7 @@ export function Hero() {
           KI-Berater · Dozent
         </Reveal>
 
-        <Reveal as="h1" className="hero-title">
-          Künstliche Intelligenz,{" "}
-          <span className="accent">anwendbar&nbsp;gemacht</span>.
-        </Reveal>
+        <HeroTitle />
 
         <Reveal as="p" className="hero-lead">
           Beratung, Schulung und Umsetzung für Unternehmen.

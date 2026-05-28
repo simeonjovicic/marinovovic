@@ -1,25 +1,33 @@
+import { Sparkles, Sigma, LineChart, GraduationCap } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Reveal } from "./Reveal";
 
-const DOMAINS = [
+type Domain = {
+  title: string;
+  text: string;
+  Icon: LucideIcon;
+};
+
+const DOMAINS: Domain[] = [
   {
     title: "Künstliche Intelligenz",
     text: "LLMs, Agenten, RAG, ML-Engineering",
-    code: "AI",
+    Icon: Sparkles,
   },
   {
     title: "Versicherungsmathematik",
     text: "Aktuarielle Modelle, stochastische Methoden",
-    code: "ACT",
+    Icon: Sigma,
   },
   {
     title: "Data Science",
     text: "Statistik, Modellierung, Auswertung",
-    code: "DS",
+    Icon: LineChart,
   },
   {
     title: "Bildung & Mentoring",
     text: "Lehre, Workshops, Coaching",
-    code: "EDU",
+    Icon: GraduationCap,
   },
 ];
 
@@ -41,12 +49,14 @@ export function Domains() {
           </Reveal>
 
           <ul className="domain-grid">
-            {DOMAINS.map((d) => (
-              <Reveal as="li" key={d.title} className="domain">
-                <span>{d.code}</span>
+            {DOMAINS.map(({ title, text, Icon }) => (
+              <Reveal as="li" key={title} className="domain">
+                <span className="domain-icon" aria-hidden="true">
+                  <Icon size={22} strokeWidth={1.75} />
+                </span>
                 <div>
-                  <h3>{d.title}</h3>
-                  <p>{d.text}</p>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
                 </div>
               </Reveal>
             ))}

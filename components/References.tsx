@@ -34,8 +34,20 @@ export function References() {
 
         <div className="reference-layout">
           <Reveal className="reference-summary">
-            <span>Netzwerk</span>
-            <strong>Akademie, Unternehmen und Tech-Community</strong>
+            <span className="ref-kicker">Netzwerk</span>
+            <p className="ref-headline">
+              Akademie, Unternehmen &amp; Tech-Community.
+            </p>
+            <p className="ref-lead">
+              Drei Welten, ein roter Faden: Wissen weitergeben, Projekte
+              umsetzen, am Puls der Entwicklung bleiben.
+            </p>
+            <div className="ref-meta">
+              <span className="ref-dot" aria-hidden="true" />
+              <span>
+                <strong>3 Bereiche</strong> · DACH-Raum
+              </span>
+            </div>
           </Reveal>
 
           <div className="reference-ledger">

@@ -16,18 +16,67 @@ const sourceSerif = Source_Serif_4({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kiprofessor.at"),
-  title: "Emil Marinov · KI-Berater für Unternehmen",
+  title: {
+    default: "Emil Marinov · KI-Berater für Unternehmen",
+    template: "%s · Emil Marinov",
+  },
   description:
     "Emil Marinov – KI-Berater, Dozent und Professor. Beratung, Schulung und Umsetzung von KI-Projekten, RAG-Systemen und Prozessautomatisierung für Unternehmen.",
-  authors: [{ name: "Emil Marinov" }],
-  icons: { icon: "/favicon.svg" },
+  applicationName: "Emil Marinov · KI-Beratung",
+  authors: [{ name: "Emil Marinov", url: "https://kiprofessor.at" }],
+  creator: "Emil Marinov",
+  publisher: "Emil Marinov",
+  keywords: [
+    "KI-Berater",
+    "KI-Beratung",
+    "Künstliche Intelligenz",
+    "RAG-Systeme",
+    "Retrieval-Augmented Generation",
+    "Prozessautomatisierung",
+    "n8n",
+    "Workshop",
+    "Dozent",
+    "Professor",
+    "Versicherungsmathematik",
+    "Data Science",
+    "Österreich",
+    "Wien",
+  ],
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
+  alternates: {
+    canonical: "/",
+    languages: { "de-AT": "/", "de-DE": "/" },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "de_AT",
+    url: "https://kiprofessor.at",
+    siteName: "Emil Marinov · KI-Beratung",
     title: "Emil Marinov · KI-Berater für Unternehmen",
     description:
       "Beratung, Schulung und Umsetzung von KI-Projekten — akademisch fundiert, praktisch anwendbar.",
-    images: ["/og-image.svg"],
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "Emil Marinov · KI-Berater für Unternehmen",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -36,6 +85,7 @@ export const metadata: Metadata = {
       "Beratung, Schulung und Umsetzung von KI-Projekten — akademisch fundiert, praktisch anwendbar.",
     images: ["/og-image.svg"],
   },
+  category: "technology",
 };
 
 export const viewport: Viewport = {
