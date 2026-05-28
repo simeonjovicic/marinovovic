@@ -49,15 +49,21 @@ export function About() {
               Meine Arbeit verbindet komplexe Mathematik mit moderner
               künstlicher Intelligenz — akademisch fundiert, praktisch anwendbar.
             </p>
-            <p>
+            <p className="hide-mobile">
               In über zehn Jahren Lehre habe ich mehr als 50 Diplom- und
               Abschlussprojekte fachlich begleitet — von der Themenfindung
               über die methodische Tiefe bis zur Verteidigung.
             </p>
             <p>
-              Für Unternehmen bin ich Berater, Sparringspartner und Umsetzer:
-              Ich helfe dabei, KI-Projekte nicht beim Proof-of-Concept enden zu
-              lassen, sondern in produktive, messbare Lösungen zu überführen.
+              <span className="hide-mobile">
+                Für Unternehmen bin ich Berater, Sparringspartner und Umsetzer:
+                Ich helfe dabei, KI-Projekte nicht beim Proof-of-Concept enden
+                zu lassen, sondern in produktive, messbare Lösungen zu überführen.
+              </span>
+              <span className="show-mobile">
+                Für Unternehmen Berater und Umsetzer — KI-Projekte bis zur
+                produktiven Lösung führen.
+              </span>
             </p>
           </Reveal>
 

@@ -39,8 +39,13 @@ export function References() {
               Akademie, Unternehmen &amp; Tech-Community.
             </p>
             <p className="ref-lead">
-              Drei Welten, ein roter Faden: Wissen weitergeben, Projekte
-              umsetzen, am Puls der Entwicklung bleiben.
+              <span className="hide-mobile">
+                Drei Welten, ein roter Faden: Wissen weitergeben, Projekte
+                umsetzen, am Puls der Entwicklung bleiben.
+              </span>
+              <span className="show-mobile">
+                Drei Welten, ein roter Faden.
+              </span>
             </p>
             <div className="ref-meta">
               <span className="ref-dot" aria-hidden="true" />

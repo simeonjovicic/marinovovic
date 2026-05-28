@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { Reveal } from "./Reveal";
 
@@ -10,6 +10,8 @@ const SERVICES = [
     label: "Automation",
     title: "Prozessautomatisierung mit KI-Agents",
     text: "Analyse, Konzeption und Umsetzung vollautomatisierter Geschäftsprozesse. Wir identifizieren wiederkehrende Aufgaben, modellieren Agenten-Workflows und integrieren sie in Ihre Systemlandschaft.",
+    short:
+      "Wiederkehrende Aufgaben durch mehrstufige KI-Agents automatisieren — von der Analyse bis zur Integration.",
     features: [
       "Identifikation automatisierbarer Prozesse",
       "Mehrstufige Agenten-Workflows mit klaren Übergaben",
@@ -22,6 +24,8 @@ const SERVICES = [
     label: "Custom AI",
     title: "Maßgeschneiderte KI-Lösungen & RAG-Systeme",
     text: "Individuelle KI-Applikationen — von der Retrieval-Augmented-Generation-Architektur über Vektor-Datenbanken bis zur produktiven Bereitstellung. Sicher, dokumentiert, wartbar.",
+    short:
+      "Eigene RAG-Systeme auf Ihren Daten: vom Prototyp bis zur sicheren Bereitstellung.",
     features: [
       "Retrieval-Augmented Generation auf eigenen Daten",
       "Vektor-Datenbank-Auswahl und -Integration",
@@ -34,6 +38,8 @@ const SERVICES = [
     label: "Enablement",
     title: "Schulungen zu Künstlicher Intelligenz",
     text: "Praxisnahe Workshops für Fach- und Führungskräfte. Von den Grundlagen über Prompt Engineering bis zur strategischen Einordnung von KI im Unternehmen.",
+    short:
+      "Praxisnahe KI-Workshops für Fach- und Führungskräfte — Grundlagen bis Strategie.",
     features: [
       "Grundlagen-Sessions für gemischte Teams",
       "Prompt Engineering mit echten Use Cases",
@@ -46,6 +52,8 @@ const SERVICES = [
     label: "Workflow",
     title: "Schulungen zur Prozessautomatisierung mit n8n",
     text: "Automatisierung von Datenpipelines und Geschäftsprozessen mit n8n. Hands-on, mit eigenen Use Cases und konkreten Beispielen aus der Teilnehmerpraxis.",
+    short:
+      "n8n-Schulungen für Datenpipelines und Automatisierung — hands-on mit echten Use Cases.",
     features: [
       "n8n-Grundlagen und Architektur-Konzepte",
       "Eigene Workflows live im Workshop bauen",
@@ -58,6 +66,8 @@ const SERVICES = [
     label: "Begleitung",
     title: "Individuelle Beratung & Projektbegleitung",
     text: "Maßgeschneiderte Beratung über die gesamte Projektdauer — vom Erstgespräch über Architektur-Reviews bis zur begleitenden Umsetzung. Auch als externer Sparringspartner für interne Teams.",
+    short:
+      "Beratung & Sparring über die gesamte Projektlaufzeit — auch als externer Reviewer.",
     features: [
       "Architektur-Reviews und Sparring",
       "Externe Zweitmeinung für interne Teams",
@@ -69,13 +79,15 @@ const SERVICES = [
 
 export function Services() {
   const listRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     const list = listRef.current;
     if (!list) return;
 
     let raf = 0;
-    const update = () => {
+
+    const updateProgress = () => {
       const rect = list.getBoundingClientRect();
       const vh = window.innerHeight;
       const total = rect.height + vh * 0.4;
@@ -84,20 +96,50 @@ export function Services() {
       list.style.setProperty("--progress", progress.toFixed(4));
     };
 
-    const onScroll = () => {
+    const onWindowScroll = () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
+      raf = requestAnimationFrame(updateProgress);
     };
 
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    const onListScroll = () => {
+      if (!list) return;
+      const center = list.scrollLeft + list.clientWidth / 2;
+      let nearest = 0;
+      let minDist = Infinity;
+      const items = list.querySelectorAll<HTMLElement>(".service-item");
+      items.forEach((item, i) => {
+        const c = item.offsetLeft + item.clientWidth / 2;
+        const d = Math.abs(c - center);
+        if (d < minDist) {
+          minDist = d;
+          nearest = i;
+        }
+      });
+      setActive(nearest);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", onWindowScroll, { passive: true });
+    window.addEventListener("resize", onWindowScroll, { passive: true });
+    list.addEventListener("scroll", onListScroll, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", onWindowScroll);
+      window.removeEventListener("resize", onWindowScroll);
+      list.removeEventListener("scroll", onListScroll);
     };
   }, []);
+
+  const goTo = (i: number) => {
+    const list = listRef.current;
+    if (!list) return;
+    const items = list.querySelectorAll<HTMLElement>(".service-item");
+    const target = items[i];
+    if (target) {
+      const offset = target.offsetLeft - list.offsetLeft;
+      list.scrollTo({ left: offset, behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="section section-alt" id="leistungen">
@@ -111,9 +153,14 @@ export function Services() {
           </Reveal>
 
           <Reveal as="p" className="section-copy">
-            Von der ersten Einschätzung bis zur produktiven Anwendung: Die
-            Arbeit ist auf Klarheit, technische Substanz und Transfer in den
-            Alltag ausgelegt.
+            <span className="hide-mobile">
+              Von der ersten Einschätzung bis zur produktiven Anwendung: Die
+              Arbeit ist auf Klarheit, technische Substanz und Transfer in den
+              Alltag ausgelegt.
+            </span>
+            <span className="show-mobile">
+              Von der ersten Einschätzung bis zur produktiven Lösung.
+            </span>
           </Reveal>
         </div>
 
@@ -137,7 +184,10 @@ export function Services() {
 
               <div className="service-content">
                 <Reveal as="h3">{s.title}</Reveal>
-                <Reveal as="p">{s.text}</Reveal>
+                <Reveal>
+                  <p className="hide-mobile">{s.text}</p>
+                  <p className="show-mobile">{s.short}</p>
+                </Reveal>
                 <Reveal as="ul" className="service-features">
                   {s.features.map((f) => (
                     <li key={f}>
@@ -148,6 +198,18 @@ export function Services() {
                 </Reveal>
               </div>
             </article>
+          ))}
+        </div>
+
+        <div className="service-dots" aria-hidden="true">
+          {SERVICES.map((s, i) => (
+            <button
+              key={s.num}
+              type="button"
+              className={`service-dot${i === active ? " is-active" : ""}`}
+              onClick={() => goTo(i)}
+              aria-label={`Leistung ${i + 1} anzeigen`}
+            />
           ))}
         </div>
       </div>

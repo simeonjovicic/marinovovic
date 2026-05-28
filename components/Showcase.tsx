@@ -105,9 +105,14 @@ export function Showcase() {
           </Reveal>
 
           <Reveal as="p" className="section-copy">
-            Ein Auszug aus Beratungs- und Umsetzungsprojekten der letzten Jahre
-            — von RAG-Systemen über Agenten-Workflows bis zu Lehr- und
-            Strategie-Formaten.
+            <span className="hide-mobile">
+              Ein Auszug aus Beratungs- und Umsetzungsprojekten der letzten
+              Jahre — von RAG-Systemen über Agenten-Workflows bis zu Lehr- und
+              Strategie-Formaten.
+            </span>
+            <span className="show-mobile">
+              Auszug aktueller Projekte — RAG, Agenten und Workshops.
+            </span>
           </Reveal>
         </div>
 
