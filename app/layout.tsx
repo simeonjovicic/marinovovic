@@ -89,7 +89,72 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A1628",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FAFAF7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A0E14" },
+  ],
+  colorScheme: "light dark",
+};
+
+const SITE_URL = "https://kiprofessor.at";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "Emil Marinov",
+      url: SITE_URL,
+      image: `${SITE_URL}/emil-portrait.jpg`,
+      jobTitle: "KI-Berater, Dozent und Professor",
+      description:
+        "Beratung, Schulung und Umsetzung von KI-Projekten — akademisch fundiert, praktisch anwendbar.",
+      knowsAbout: [
+        "Künstliche Intelligenz",
+        "Retrieval-Augmented Generation",
+        "Large Language Models",
+        "Prozessautomatisierung",
+        "Versicherungsmathematik",
+        "Data Science",
+        "n8n",
+      ],
+      worksFor: { "@id": `${SITE_URL}/#service` },
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE_URL}/#service`,
+      name: "Emil Marinov · KI-Beratung",
+      url: SITE_URL,
+      image: `${SITE_URL}/og-image.svg`,
+      description:
+        "Beratung, Schulung und Umsetzung von KI-Projekten, RAG-Systemen und Prozessautomatisierung für Unternehmen.",
+      founder: { "@id": `${SITE_URL}/#person` },
+      areaServed: {
+        "@type": "Country",
+        name: "Österreich",
+      },
+      serviceType: [
+        "KI-Beratung",
+        "KI-Workshops",
+        "Prozessautomatisierung mit KI-Agents",
+        "RAG-Systeme",
+        "Schulungen zur Prozessautomatisierung mit n8n",
+        "Projektbegleitung",
+      ],
+      knowsLanguage: ["de", "en"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Emil Marinov · KI-Berater",
+      description:
+        "Beratung, Schulung und Umsetzung von KI-Projekten — akademisch fundiert, praktisch anwendbar.",
+      publisher: { "@id": `${SITE_URL}/#person` },
+      inLanguage: "de-AT",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -102,6 +167,10 @@ export default function RootLayout({
           Zum Inhalt springen
         </a>
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   );
