@@ -5,30 +5,30 @@ import Image from "next/image";
 export function Hero() {
   return (
     <section
-      className="bg-[#E8E8E6] text-[#0A0A0A] min-h-screen flex flex-col justify-between px-4 sm:px-6 md:p-12 pt-20 md:pt-12 pb-6 md:pb-12 mesh-grid-light relative border-b border-black/10 overflow-hidden"
+      className="bg-[#E8E8E6] text-[#0A0A0A] min-h-[100svh] flex flex-col justify-between px-4 sm:px-6 md:p-12 pt-20 md:pt-12 pb-6 md:pb-12 mesh-grid-light relative border-b border-black/10 overflow-hidden"
       id="top"
     >
       {/* Center Content: Portrait + Overlapping Name */}
-      <div className="relative flex-grow flex items-center justify-center my-4 md:my-6 max-w-7xl mx-auto w-full">
+      <div className="relative flex-grow flex items-center justify-center my-2 md:my-6 max-w-7xl mx-auto w-full">
 
         {/* Portrait Container */}
-        <div className="absolute inset-y-0 w-full max-w-[280px] sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto flex items-end justify-center z-10 pointer-events-none">
-          <div className="relative h-[45vh] sm:h-[55vh] md:h-[65vh] lg:h-[72vh] w-full aspect-[4/5] overflow-hidden rounded-2xl md:rounded-[1.5rem] group/portrait pointer-events-auto">
+        <div className="relative w-full max-w-[320px] sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto flex items-center justify-center z-10">
+          <div className="relative h-[60vh] sm:h-[62vh] md:h-[65vh] lg:h-[72vh] w-full aspect-[4/5] overflow-hidden rounded-2xl md:rounded-[1.5rem] group/portrait">
             <Image
               src="/emil-portrait.jpg"
               alt="Emil Marinov Portrait"
               fill
               priority
-              sizes="(max-width: 768px) 80vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover object-center filter grayscale contrast-[1.15] brightness-[0.9] transition-transform duration-[1500ms] ease-out hover:scale-105"
             />
           </div>
-        </div>
 
-        {/* Overlapping Name Text */}
-        <h1 className="relative z-20 text-center font-black tracking-tighter leading-none select-none text-[16vw] sm:text-[14vw] md:text-[10vw] lg:text-[9.5vw] text-white blend-difference pointer-events-none uppercase">
-          Emil Marinov
-        </h1>
+          {/* Overlapping Name Text - absolute centered over portrait */}
+          <h1 className="absolute inset-0 z-20 flex items-center justify-center text-center font-black tracking-tighter leading-[0.85] select-none text-[18vw] sm:text-[16vw] md:text-[10vw] lg:text-[9.5vw] text-white blend-difference pointer-events-none uppercase px-2">
+            Emil<br className="md:hidden" /> Marinov
+          </h1>
+        </div>
       </div>
 
       {/* Bottom Bar: Socials (Left) + Titles (Right) */}
