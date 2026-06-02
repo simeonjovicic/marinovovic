@@ -163,6 +163,9 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${inter.variable} ${sourceSerif.variable} no-js`}>
       <body>
+        <div className="vertical-brand-text" aria-hidden="true">
+          Emil Marinov
+        </div>
         <a href="#hauptinhalt" className="skip-link">
           Zum Inhalt springen
         </a>
