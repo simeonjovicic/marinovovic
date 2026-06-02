@@ -24,11 +24,16 @@ export function Hero() {
             />
           </div>
 
-          {/* Overlapping Name Text - absolute centered over portrait */}
-          <h1 className="absolute inset-0 z-20 flex items-center justify-center text-center font-black tracking-tighter leading-[0.85] select-none text-[18vw] sm:text-[16vw] md:text-[10vw] lg:text-[9.5vw] text-white blend-difference pointer-events-none uppercase px-2">
-            Emil<br className="md:hidden" /> Marinov
+          {/* Mobile title: stacked 2 lines positioned over the head */}
+          <h1 className="md:hidden absolute inset-x-0 top-[3%] z-20 text-center font-black tracking-tighter leading-[0.85] select-none text-[13vw] sm:text-[12vw] text-white blend-difference pointer-events-none uppercase px-4">
+            Emil<br /> Marinov
           </h1>
         </div>
+
+        {/* Desktop title: single line spanning wider than portrait */}
+        <h1 className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center font-black tracking-tighter leading-none select-none text-[10vw] lg:text-[9.5vw] text-white blend-difference pointer-events-none uppercase whitespace-nowrap">
+          Emil Marinov
+        </h1>
       </div>
 
       {/* Bottom Bar: Socials (Left) + Titles (Right) */}
