@@ -118,14 +118,14 @@ export function Contact() {
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
         {/* Left Column: Info */}
-        <div className="lg:col-span-5 flex flex-col h-full justify-between">
+        <div className="lg:col-span-5 flex flex-col gap-10 lg:gap-12">
           <div>
             <p className="text-[#A0A0A0] text-sm md:text-base leading-relaxed mb-10 max-w-md">
               Haben Sie Fragen zu potenziellen Use-Cases, Lehrinhalten oder Automatisierungsworkflows? Schreiben Sie mir kurz, worum es geht. Ich melde mich in der Regel innerhalb von zwei Werktagen mit einer ersten Einschätzung.
             </p>
           </div>
 
-          <div className="flex flex-col gap-6 border-t border-white/10 pt-10 mt-6 w-full">
+          <div className="flex flex-col gap-6 border-t border-white/10 pt-10 w-full">
             <Reveal className="flex items-center gap-4 text-white hover:text-[#FF4D2D] transition-colors group">
               <a href="mailto:kontakt@kiprofessor.at" className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#FF4D2D] group-hover:bg-[#FF4D2D]/5 transition-all duration-500">
