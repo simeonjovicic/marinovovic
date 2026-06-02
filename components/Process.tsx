@@ -76,7 +76,7 @@ function ProcessStepCard({ step }: { step: typeof PROCESS_STEPS[0] }) {
 
   return (
     <div 
-      className="bg-[#121212]/50 border border-white/5 hover:border-[#FF4D2D]/35 rounded-3xl p-6 flex flex-col justify-between min-h-[300px] transition-all duration-500 group relative z-10 overflow-hidden cursor-default hover:-translate-y-1"
+      className="bg-[#121212]/50 border border-white/5 hover:border-[#FF4D2D]/35 rounded-3xl p-5 md:p-6 flex flex-col justify-between md:min-h-[300px] transition-all duration-500 group relative z-10 overflow-hidden cursor-default hover:-translate-y-1"
       onMouseMove={handleMouseMove}
     >
       {/* Interactive Radial Hover Glow */}
@@ -103,7 +103,7 @@ function ProcessStepCard({ step }: { step: typeof PROCESS_STEPS[0] }) {
           <h4 className="text-lg font-bold text-white uppercase tracking-tight mb-2 group-hover:text-[#FF4D2D] transition-colors duration-500">
             {step.title}
           </h4>
-          <p className="text-xs md:text-sm text-[#A0A0A0] leading-relaxed mb-6">
+          <p className="text-xs md:text-sm text-[#A0A0A0] leading-relaxed mb-6 hidden md:block">
             {step.desc}
           </p>
         </div>

@@ -57,12 +57,12 @@ function TechCategoryCard({ cat }: { cat: typeof TECH_CATEGORIES[0] }) {
           <h4 className="text-lg md:text-xl font-bold text-white uppercase tracking-tight mb-2 group-hover:text-[#FF4D2D] transition-colors duration-300">
             {cat.title}
           </h4>
-          <p className="text-xs md:text-sm text-[#A0A0A0] leading-relaxed mb-6">
+          <p className="text-xs md:text-sm text-[#A0A0A0] leading-relaxed mb-6 hidden md:block">
             {cat.desc}
           </p>
-          
-          {/* Integration Details - B2B Focus */}
-          <div className="bg-[#1C1C1C] border border-white/5 rounded-2xl p-4 md:p-5 mb-6 group-hover:bg-[#222] transition-colors duration-500">
+
+          {/* Integration Details - B2B Focus - hidden on mobile */}
+          <div className="bg-[#1C1C1C] border border-white/5 rounded-2xl p-4 md:p-5 mb-6 group-hover:bg-[#222] transition-colors duration-500 hidden md:block">
             <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider block mb-1">Integrations-Szenario:</span>
             <p className="text-xs text-white/95 leading-relaxed">{cat.integration}</p>
           </div>

@@ -260,6 +260,15 @@ body {
   *, *::before, *::after { animation: none !important; transition-duration: 0.001ms !important; }
 }
 
+/* Hide scrollbar utility for horizontal carousels */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom UI Grid background */
 .mesh-grid {
   background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);

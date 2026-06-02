@@ -184,14 +184,14 @@ function ProjectCard({ proj }: { proj: typeof PROJECTS_DATA[0] }) {
             {proj.title}
           </h4>
 
-          {/* Challenge Section */}
-          <div className="mb-4">
+          {/* Challenge Section - hidden on mobile to reduce card density */}
+          <div className="mb-4 hidden md:block">
             <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider block mb-1">Herausforderung:</span>
             <p className="text-xs md:text-sm text-[#A0A0A0] leading-relaxed">{proj.challenge}</p>
           </div>
 
-          {/* Technical Solution bullets */}
-          <div className="mb-6">
+          {/* Technical Solution bullets - hidden on mobile */}
+          <div className="mb-6 hidden md:block">
             <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider block mb-1.5">Lösung:</span>
             <ul className="flex flex-col gap-1.5">
               {proj.solution.map((sol, i) => (
@@ -242,8 +242,23 @@ export function Services() {
             </p>
           </div>
 
-          {/* Grid Layout for Projects */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full mt-4">
+          {/* Mobile: swipeable horizontal carousel. Desktop (lg+): 2-col grid */}
+          <div className="lg:hidden -mx-6 mt-4">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-6 pb-4 scrollbar-hide">
+              {PROJECTS_DATA.map((proj, idx) => (
+                <div key={idx} className="snap-center shrink-0 w-[85vw] max-w-md">
+                  <ProjectCard proj={proj} />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center gap-1.5 mt-2">
+              {PROJECTS_DATA.map((_, idx) => (
+                <span key={idx} className="w-1.5 h-1.5 rounded-full bg-white/20" />
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden lg:grid grid-cols-2 gap-8 w-full mt-4">
             {PROJECTS_DATA.map((proj, idx) => (
               <ProjectCard key={idx} proj={proj} />
             ))}
@@ -287,12 +302,12 @@ export function Services() {
                   <Reveal as="h4" className="text-xl md:text-2xl font-bold text-white uppercase tracking-tight group-hover:text-[#FF4D2D] transition-colors duration-500">
                     {service.title}
                   </Reveal>
-                  <Reveal as="p" className="text-[#A0A0A0] text-sm leading-relaxed mb-4">
+                  <Reveal as="p" className="text-[#A0A0A0] text-sm leading-relaxed mb-4 hidden md:block">
                     {service.desc}
                   </Reveal>
-                  
-                  {/* Detailed Scope bullet points */}
-                  <Reveal className="flex flex-col gap-2">
+
+                  {/* Detailed Scope bullet points - hidden on mobile */}
+                  <Reveal className="hidden md:flex flex-col gap-2">
                     <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider">Projektumfang / Deliverables:</span>
                     <ul className="flex flex-col gap-1.5">
                       {service.scope.map((item, idx) => (

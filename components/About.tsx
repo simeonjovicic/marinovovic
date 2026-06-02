@@ -190,10 +190,10 @@ export function About() {
           {/* Stats Grid with Hover Elevation */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-t border-white/10 pt-12 mt-16 md:mt-24 w-full">
             {STATS.map((stat, i) => (
-              <Reveal key={i} className="flex flex-col gap-2 p-6 bg-[#161616]/40 border border-white/5 rounded-2xl hover:border-[#FF4D2D]/20 hover:-translate-y-1 hover:bg-[#1E1E1E]/40 transition-all duration-300">
+              <Reveal key={i} className="flex flex-col gap-2 p-5 md:p-6 bg-[#161616]/40 border border-white/5 rounded-2xl hover:border-[#FF4D2D]/20 hover:-translate-y-1 hover:bg-[#1E1E1E]/40 transition-all duration-300">
                 <span className="text-4xl md:text-5xl font-black text-[#FF4D2D] tracking-tight">{stat.num}</span>
                 <h4 className="text-sm font-bold text-white uppercase tracking-wider">{stat.title}</h4>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed">{stat.desc}</p>
+                <p className="text-xs text-[#A0A0A0] leading-relaxed hidden md:block">{stat.desc}</p>
               </Reveal>
             ))}
           </div>
@@ -202,42 +202,42 @@ export function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/10 pt-12 mt-12 w-full">
             
             {/* Pillar 1 */}
-            <Reveal className="flex flex-col gap-4 bg-[#121212]/40 border border-white/5 hover:border-[#FF4D2D]/35 hover:-translate-y-1 hover:bg-[#1E1E1E]/20 transition-all duration-500 p-6 rounded-2xl group">
+            <Reveal className="flex flex-col gap-3 md:gap-4 bg-[#121212]/40 border border-white/5 hover:border-[#FF4D2D]/35 hover:-translate-y-1 hover:bg-[#1E1E1E]/20 transition-all duration-500 p-5 md:p-6 rounded-2xl group">
               <div className="w-12 h-12 rounded-xl bg-[#FF4D2D]/5 flex items-center justify-center">
                 <TargetIcon />
               </div>
               <div>
                 <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider font-mono">Pfeiler 01</span>
                 <h4 className="text-lg font-bold text-white uppercase mt-1">Use Case schärfen</h4>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed mt-2">
+                <p className="text-xs text-[#A0A0A0] leading-relaxed mt-2 hidden md:block">
                   Identifizieren, welche KI-Verfahren im individuellen Kontext echten, messbaren Nutzen stiften und Potenziale optimal heben.
                 </p>
               </div>
             </Reveal>
 
             {/* Pillar 2 */}
-            <Reveal className="flex flex-col gap-4 bg-[#121212]/40 border border-white/5 hover:border-[#FF4D2D]/35 hover:-translate-y-1 hover:bg-[#1E1E1E]/20 transition-all duration-500 p-6 rounded-2xl group">
+            <Reveal className="flex flex-col gap-3 md:gap-4 bg-[#121212]/40 border border-white/5 hover:border-[#FF4D2D]/35 hover:-translate-y-1 hover:bg-[#1E1E1E]/20 transition-all duration-500 p-5 md:p-6 rounded-2xl group">
               <div className="w-12 h-12 rounded-xl bg-[#FF4D2D]/5 flex items-center justify-center">
                 <BlueprintIcon />
               </div>
               <div>
                 <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider font-mono">Pfeiler 02</span>
                 <h4 className="text-lg font-bold text-white uppercase mt-1">Architektur etablieren</h4>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed mt-2">
+                <p className="text-xs text-[#A0A0A0] leading-relaxed mt-2 hidden md:block">
                   Robuste, wartbare und modular aufgebahaute RAG-Systeme und n8n-Workflowpipelines planen, sichern und nahtlos implementieren.
                 </p>
               </div>
             </Reveal>
 
             {/* Pillar 3 */}
-            <Reveal className="flex flex-col gap-4 bg-[#121212]/40 border border-white/5 hover:border-[#FF4D2D]/35 hover:-translate-y-1 hover:bg-[#1E1E1E]/20 transition-all duration-500 p-6 rounded-2xl group">
+            <Reveal className="flex flex-col gap-3 md:gap-4 bg-[#121212]/40 border border-white/5 hover:border-[#FF4D2D]/35 hover:-translate-y-1 hover:bg-[#1E1E1E]/20 transition-all duration-500 p-5 md:p-6 rounded-2xl group">
               <div className="w-12 h-12 rounded-xl bg-[#FF4D2D]/5 flex items-center justify-center">
                 <TransferIcon />
               </div>
               <div>
                 <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider font-mono">Pfeiler 03</span>
                 <h4 className="text-lg font-bold text-white uppercase mt-1">Transfer &amp; Enablement</h4>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed mt-2">
+                <p className="text-xs text-[#A0A0A0] leading-relaxed mt-2 hidden md:block">
                   Mitarbeiter befähigen und anleiten. Praktische n8n-Workshops und Prompt-Engineering Schulungen für langfristige Unabhängigkeit.
                 </p>
               </div>
