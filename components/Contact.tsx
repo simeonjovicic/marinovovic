@@ -129,7 +129,12 @@ const MapPinIcon = ({ className = "contact-icon" }: ContactIconProps) => (
   </svg>
 );
 
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
+
 export function Contact() {
+  const { lang } = useLang();
+  const tr = tx.contact;
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<FormStatus>({ kind: "idle" });
@@ -158,11 +163,7 @@ export function Contact() {
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) {
-      setStatus({
-        kind: "error",
-        message:
-          "Bitte alle Felder korrekt ausfüllen und die Datenverarbeitung bestätigen.",
-      });
+      setStatus({ kind: "error", message: t(tr.errFill, lang) });
       return;
     }
 
@@ -171,10 +172,7 @@ export function Contact() {
     if (!SUBMIT_ENDPOINT) {
       // Demo-Pfad – kein echter Versand konfiguriert.
       await new Promise((r) => setTimeout(r, 500));
-      setStatus({
-        kind: "ok",
-        message: "Vielen Dank! (Demo: Versand ist noch nicht angebunden.)",
-      });
+      setStatus({ kind: "ok", message: t(tr.okDemo, lang) });
       setValues(INITIAL_VALUES);
       return;
     }
@@ -186,17 +184,10 @@ export function Contact() {
         body: JSON.stringify(values),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setStatus({
-        kind: "ok",
-        message: "Vielen Dank — Ihre Nachricht ist angekommen.",
-      });
+      setStatus({ kind: "ok", message: t(tr.ok, lang) });
       setValues(INITIAL_VALUES);
     } catch {
-      setStatus({
-        kind: "error",
-        message:
-          "Senden fehlgeschlagen. Bitte später erneut versuchen oder per E-Mail kontaktieren.",
-      });
+      setStatus({ kind: "error", message: t(tr.errSend, lang) });
     }
   };
 
@@ -205,7 +196,7 @@ export function Contact() {
       : status.kind === "ok" ? "form-status is-ok"
       : "form-status";
   const statusText =
-    status.kind === "sending" ? "Wird gesendet …"
+    status.kind === "sending" ? t(tr.sending, lang)
       : status.kind === "ok" || status.kind === "error" ? status.message
       : "";
 
@@ -216,19 +207,14 @@ export function Contact() {
           <div className="contact-copy">
             <span className="contact-badge">
               <EnvelopeIcon className="contact-badge-icon" />
-              Kontakt aufnehmen
+              {t(tr.badgeButton, lang)}
             </span>
 
             <h2 className="contact-title">
-              Lassen Sie uns Ihr <span className="accent">KI-Projekt</span>{" "}
-              starten.
+              {t(tr.titleStart, lang)} <span className="accent">{t(tr.titleAccent, lang)}</span>{t(tr.titleEnd, lang)}
             </h2>
 
-            <p className="contact-lead">
-              Schreiben Sie mir kurz, worum es geht. Ich melde mich in der
-              Regel innerhalb von zwei Werktagen mit einer konkreten
-              Einschätzung.
-            </p>
+            <p className="contact-lead">{t(tr.lead, lang)}</p>
 
             <div className="contact-points" aria-label="Kontaktinformationen">
               <a href="mailto:kontakt@kiprofessor.at" className="contact-point">
@@ -241,13 +227,13 @@ export function Contact() {
                 <span className="contact-point-icon">
                   <ClockIcon />
                 </span>
-                <span>Antwort innerhalb von 2 Werktagen</span>
+                <span>{t(tr.pointTime, lang)}</span>
               </div>
               <div className="contact-point">
                 <span className="contact-point-icon">
                   <MapPinIcon />
                 </span>
-                <span>Österreichweit und remote</span>
+                <span>{t(tr.pointPlace, lang)}</span>
               </div>
             </div>
           </div>
@@ -259,14 +245,14 @@ export function Contact() {
             aria-describedby="form-status"
           >
             <div className={`field${errors.name ? " has-error" : ""}`}>
-              <label htmlFor="name">Ihr Name</label>
+              <label htmlFor="name">{t(tr.nameLabel, lang)}</label>
               <input
                 id="name"
                 name="name"
                 type="text"
                 autoComplete="name"
                 required
-                placeholder="Name"
+                placeholder={t(tr.namePh, lang)}
                 value={values.name}
                 onChange={(e) => set("name", e.target.value)}
                 aria-invalid={!!errors.name}
@@ -274,14 +260,14 @@ export function Contact() {
             </div>
 
             <div className={`field${errors.email ? " has-error" : ""}`}>
-              <label htmlFor="email">Ihre E-Mail</label>
+              <label htmlFor="email">{t(tr.emailLabel, lang)}</label>
               <input
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                placeholder="E-Mail"
+                placeholder={t(tr.emailPh, lang)}
                 value={values.email}
                 onChange={(e) => set("email", e.target.value)}
                 aria-invalid={!!errors.email}
@@ -289,13 +275,13 @@ export function Contact() {
             </div>
 
             <div className={`field${errors.message ? " has-error" : ""}`}>
-              <label htmlFor="message">Worum geht es?</label>
+              <label htmlFor="message">{t(tr.messageLabel, lang)}</label>
               <textarea
                 id="message"
                 name="message"
                 rows={5}
                 required
-                placeholder="Projekt, Ziel oder kurze Frage"
+                placeholder={t(tr.messagePh, lang)}
                 value={values.message}
                 onChange={(e) => set("message", e.target.value)}
                 aria-invalid={!!errors.message}
@@ -313,10 +299,8 @@ export function Contact() {
                 aria-invalid={!!errors.privacy}
               />
               <label htmlFor="privacy">
-                Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und
-                Bearbeitung meiner Anfrage verarbeitet werden. Weitere
-                Informationen in der{" "}
-                <a href="/datenschutz">Datenschutzerklärung</a>.
+                {t(tr.privacyText, lang)}{" "}
+                <a href="/datenschutz">{t(tr.privacyLink, lang)}</a>.
               </label>
             </div>
 
@@ -326,7 +310,7 @@ export function Contact() {
                 className="btn contact-submit"
                 disabled={status.kind === "sending"}
               >
-                Nachricht senden
+                {t(tr.submit, lang)}
                 <ArrowIcon />
               </button>
               <p id="form-status" className={statusClass} role="status" aria-live="polite">

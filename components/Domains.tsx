@@ -1,65 +1,44 @@
+"use client";
+
 import { Sparkles, Sigma, LineChart, GraduationCap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
-type Domain = {
-  title: string;
-  text: string;
-  Icon: LucideIcon;
-};
-
-const DOMAINS: Domain[] = [
-  {
-    title: "Künstliche Intelligenz",
-    text: "LLMs, Agenten, RAG, ML-Engineering",
-    Icon: Sparkles,
-  },
-  {
-    title: "Versicherungsmathematik",
-    text: "Aktuarielle Modelle, stochastische Methoden",
-    Icon: Sigma,
-  },
-  {
-    title: "Data Science",
-    text: "Statistik, Modellierung, Auswertung",
-    Icon: LineChart,
-  },
-  {
-    title: "Bildung & Mentoring",
-    text: "Lehre, Workshops, Coaching",
-    Icon: GraduationCap,
-  },
-];
+const ICONS: LucideIcon[] = [Sparkles, Sigma, LineChart, GraduationCap];
 
 export function Domains() {
+  const { lang } = useLang();
+  const tr = tx.domains;
+
   return (
     <section className="section section-alt" id="fachgebiete">
       <div className="container">
         <div className="domain-layout">
           <Reveal className="domain-copy">
-            <span className="badge">Fachgebiete</span>
+            <span className="badge">{t(tr.badge, lang)}</span>
             <h2 className="section-title">
-              Wo ich <span className="accent">tief im Thema</span> bin
+              {t(tr.titleStart, lang)} <span className="accent">{t(tr.titleAccent, lang)}</span>{t(tr.titleEnd, lang)}
             </h2>
-            <p>
-              Die Kombination aus Mathematik, KI-Engineering und Lehre sorgt
-              dafür, dass Projekte technisch tragfähig und verständlich
-              kommunizierbar bleiben.
-            </p>
+            <p>{t(tr.lead, lang)}</p>
           </Reveal>
 
           <ul className="domain-grid">
-            {DOMAINS.map(({ title, text, Icon }) => (
-              <Reveal as="li" key={title} className="domain">
-                <span className="domain-icon" aria-hidden="true">
-                  <Icon size={22} strokeWidth={1.75} />
-                </span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              </Reveal>
-            ))}
+            {tr.items.map((d, i) => {
+              const Icon = ICONS[i];
+              return (
+                <Reveal as="li" key={i} className="domain">
+                  <span className="domain-icon" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.75} />
+                  </span>
+                  <div>
+                    <h3>{t(d.title, lang)}</h3>
+                    <p>{t(d.text, lang)}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </ul>
         </div>
       </div>

@@ -3,56 +3,35 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
-type Project = {
-  title: string;
-  description: string;
-  year: string;
-  href: string;
-  image: string;
-};
-
-const PROJECTS: Project[] = [
+const META = [
   {
-    title: "RAG-Assistenz für Versicherer",
-    description:
-      "Wissensdatenbank mit Retrieval-Augmented Generation für interne Sachbearbeitung.",
     year: "2025",
     href: "#",
     image:
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    title: "Agenten-Workflow für Industrie",
-    description:
-      "Automatisierte Angebotsprüfung und Rückfragen-Routing über mehrstufige KI-Agents.",
     year: "2025",
     href: "#",
     image:
       "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    title: "n8n-Pipeline für Fachhochschule",
-    description:
-      "Datenpipeline zur Aufbereitung von Lehrmaterialien und Auswertung von Lernpfaden.",
     year: "2024",
     href: "#",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    title: "KI-Strategie-Workshop",
-    description:
-      "Zwei-Tages-Format für Führungskräfte: Use-Case-Mapping und Architekturentscheidungen.",
     year: "2024",
     href: "#",
     image:
       "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    title: "Vektor-Datenbank-Integration",
-    description:
-      "Anbindung einer Vektor-DB an bestehende ERP-Landschaft mit dokumentierter Migration.",
     year: "2023",
     href: "#",
     image:
@@ -61,6 +40,13 @@ const PROJECTS: Project[] = [
 ];
 
 export function Showcase() {
+  const { lang } = useLang();
+  const tr = tx.showcase;
+  const projects = tr.items.map((it, i) => ({
+    title: t(it.title, lang),
+    description: t(it.description, lang),
+    ...META[i],
+  }));
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -98,21 +84,15 @@ export function Showcase() {
       <div className="container">
         <div className="section-intro">
           <Reveal className="section-head">
-            <span className="badge">Projekte</span>
+            <span className="badge">{t(tr.badge, lang)}</span>
             <h2 className="section-title">
-              Ausgewählte <span className="accent">Arbeiten</span>
+              {t(tr.titleStart, lang)} <span className="accent">{t(tr.titleAccent, lang)}</span>
             </h2>
           </Reveal>
 
           <Reveal as="p" className="section-copy">
-            <span className="hide-mobile">
-              Ein Auszug aus Beratungs- und Umsetzungsprojekten der letzten
-              Jahre — von RAG-Systemen über Agenten-Workflows bis zu Lehr- und
-              Strategie-Formaten.
-            </span>
-            <span className="show-mobile">
-              Auszug aktueller Projekte — RAG, Agenten und Workshops.
-            </span>
+            <span className="hide-mobile">{t(tr.lead, lang)}</span>
+            <span className="show-mobile">{t(tr.leadMobile, lang)}</span>
           </Reveal>
         </div>
 
@@ -131,7 +111,7 @@ export function Showcase() {
             }}
             aria-hidden="true"
           >
-            {PROJECTS.map((p, i) => (
+            {projects.map((p, i) => (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={p.title}
@@ -147,7 +127,7 @@ export function Showcase() {
             ))}
           </div>
 
-          {PROJECTS.map((project, index) => (
+          {projects.map((project, index) => (
             <Reveal key={project.title}>
               <a
                 href={project.href}

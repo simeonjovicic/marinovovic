@@ -1,6 +1,10 @@
+"use client";
+
 import { Reveal } from "./Reveal";
 import { InfiniteGridBg } from "./InfiniteGridBg";
 import { HeroTitle } from "./HeroTitle";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 20 20" aria-hidden="true" className="btn-icon">
@@ -16,6 +20,7 @@ const ArrowIcon = () => (
 );
 
 export function Hero() {
+  const { lang } = useLang();
   return (
     <section className="hero" id="top">
       <div className="hero-bg">
@@ -24,22 +29,22 @@ export function Hero() {
 
       <div className="hero-inner">
         <Reveal as="span" className="badge">
-          KI-Berater · Dozent
+          {t(tx.hero.badge, lang)}
         </Reveal>
 
         <HeroTitle />
 
         <Reveal as="p" className="hero-lead">
-          Beratung, Schulung und Umsetzung für Unternehmen.
+          {t(tx.hero.lead, lang)}
         </Reveal>
 
         <Reveal className="hero-actions">
           <a href="#kontakt" className="btn btn-primary">
-            Kontakt aufnehmen
+            {t(tx.hero.ctaPrimary, lang)}
             <ArrowIcon />
           </a>
           <a href="#leistungen" className="btn btn-ghost">
-            Leistungen ansehen
+            {t(tx.hero.ctaSecondary, lang)}
           </a>
         </Reveal>
       </div>

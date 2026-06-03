@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
 export function SiteFooter() {
+  const { lang } = useLang();
   const year = new Date().getFullYear();
   return (
     <footer className="site-footer">
@@ -9,14 +14,14 @@ export function SiteFooter() {
           <span className="brand-mark" aria-hidden="true">EM</span>
           <div>
             <strong>Emil Marinov</strong>
-            <p>KI-Beratung, Schulung und Umsetzung</p>
+            <p>{t(tx.about.portraitCaption, lang)}</p>
           </div>
         </div>
 
         <nav aria-label="Rechtliches">
           <ul className="footer-links">
-            <li><Link href="/datenschutz">Datenschutz</Link></li>
-            <li><Link href="/impressum">Impressum</Link></li>
+            <li><Link href="/datenschutz">{t(tx.footer.privacy, lang)}</Link></li>
+            <li><Link href="/impressum">{t(tx.footer.imprint, lang)}</Link></li>
           </ul>
         </nav>
 

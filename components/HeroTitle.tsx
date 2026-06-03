@@ -1,15 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const PARTS: { text: string; accent?: boolean }[] = [
-  { text: "Künstliche" },
-  { text: "Intelligenz," },
-  { text: "anwendbar", accent: true },
-  { text: "gemacht.", accent: true },
-];
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
 export function HeroTitle() {
+  const { lang } = useLang();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,16 +13,19 @@ export function HeroTitle() {
     return () => cancelAnimationFrame(id);
   }, []);
 
+  const parts = t(tx.hero.titleParts, lang);
+  const accentIdx = tx.hero.titleAccentIdx;
+
   return (
     <h1 className={`hero-title hero-title-stagger${mounted ? " is-on" : ""}`}>
-      {PARTS.map((part, i) => (
+      {parts.map((text, i) => (
         <span
           key={i}
-          className={`hero-word${part.accent ? " accent" : ""}`}
+          className={`hero-word${accentIdx.includes(i) ? " accent" : ""}`}
           style={{ ["--i" as string]: i }}
         >
-          {part.text}
-          {i < PARTS.length - 1 ? " " : ""}
+          {text}
+          {i < parts.length - 1 ? " " : ""}
         </span>
       ))}
     </h1>

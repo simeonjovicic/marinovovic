@@ -369,6 +369,42 @@ body {
 .primary-nav a.nav-cta:hover { background: var(--accent-hover); }
 .primary-nav a.nav-cta::after { display: none; }
 
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.25rem;
+  padding: 0 0.7rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease), color 0.15s var(--ease), background 0.15s var(--ease), transform 0.15s var(--ease);
+  margin-left: 0.5rem;
+}
+.lang-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.primary-nav li.lang-li::after { display: none; }
+.primary-nav li.lang-li > .lang-toggle::after { display: none; }
+@media (max-width: 899px) {
+  .lang-toggle {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.5rem;
+    height: 2.75rem;
+    font-size: 0.85rem;
+  }
+}
+
 .nav-toggle {
   display: none;
   width: 2.5rem;

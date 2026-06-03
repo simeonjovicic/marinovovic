@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import { LangProvider } from "@/components/LangProvider";
+import { SkipLink } from "@/components/SkipLink";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -98,10 +100,10 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${inter.variable} ${sourceSerif.variable} no-js`}>
       <body>
-        <a href="#hauptinhalt" className="skip-link">
-          Zum Inhalt springen
-        </a>
-        {children}
+        <LangProvider>
+          <SkipLink />
+          {children}
+        </LangProvider>
       </body>
     </html>
   );

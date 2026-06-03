@@ -1,69 +1,46 @@
-import { Reveal } from "./Reveal";
+"use client";
 
-const REFS = [
-  {
-    num: "01",
-    title: "Akademisches Umfeld",
-    tag: "Lehre",
-    text: "Lehre an Fachhochschulen und HTLs in Österreich. Forschungsnahe Vermittlung von KI, Mathematik und Data Science.",
-  },
-  {
-    num: "02",
-    title: "Privatwirtschaft",
-    tag: "Beratung",
-    text: "Projekte und Beratungsmandate in unterschiedlichen Branchen — von Versicherung bis Industrie.",
-  },
-  {
-    num: "03",
-    title: "Tech-Community",
-    tag: "Austausch",
-    text: "Aktiver Austausch mit KI-Expertinnen, Entwicklerinnen und Forschenden im deutschsprachigen Raum.",
-  },
-];
+import { Reveal } from "./Reveal";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
 export function References() {
+  const { lang } = useLang();
+  const tr = tx.references;
+
   return (
     <section className="section" id="referenzen">
       <div className="container">
         <Reveal className="section-head">
-          <span className="badge">Referenzen &amp; Netzwerk</span>
+          <span className="badge">{t(tr.badge, lang)}</span>
           <h2 className="section-title">
-            Vertrauen aus <span className="accent">Lehre und Praxis</span>
+            {t(tr.titleStart, lang)} <span className="accent">{t(tr.titleAccent, lang)}</span>
           </h2>
         </Reveal>
 
         <div className="reference-layout">
           <Reveal className="reference-summary">
-            <span className="ref-kicker">Netzwerk</span>
-            <p className="ref-headline">
-              Akademie, Unternehmen &amp; Tech-Community.
-            </p>
+            <span className="ref-kicker">{t(tr.summaryKicker, lang)}</span>
+            <p className="ref-headline">{t(tr.summaryHeadline, lang)}</p>
             <p className="ref-lead">
-              <span className="hide-mobile">
-                Drei Welten, ein roter Faden: Wissen weitergeben, Projekte
-                umsetzen, am Puls der Entwicklung bleiben.
-              </span>
-              <span className="show-mobile">
-                Drei Welten, ein roter Faden.
-              </span>
+              <span className="hide-mobile">{t(tr.summaryLead, lang)}</span>
+              <span className="show-mobile">{t(tr.summaryLeadMobile, lang)}</span>
             </p>
             <div className="ref-meta">
               <span className="ref-dot" aria-hidden="true" />
-              <span>
-                <strong>3 Bereiche</strong> · DACH-Raum
-              </span>
+              <span>{t(tr.summaryMeta, lang)}</span>
             </div>
           </Reveal>
 
           <div className="reference-ledger">
-            {REFS.map((r) => (
-              <Reveal as="article" key={r.num} className="ref-block">
-                <span className="ref-num">{r.num}</span>
+            {tr.items.map((r, i) => (
+              <Reveal as="article" key={i} className="ref-block">
+                <span className="ref-num">{String(i + 1).padStart(2, "0")}</span>
                 <div>
-                  <h3>{r.title}</h3>
-                  <p>{r.text}</p>
+                  <h3>{t(r.title, lang)}</h3>
+                  <p>{t(r.text, lang)}</p>
                 </div>
-                <small>{r.tag}</small>
+                <small>{t(r.tag, lang)}</small>
               </Reveal>
             ))}
           </div>

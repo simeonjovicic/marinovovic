@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLang } from "./LangProvider";
+import { tx, t, LANG_LABELS } from "@/lib/i18n";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { lang, cycleLang } = useLang();
 
   useEffect(() => {
-    // Header erscheint erst nach ~80 px Scroll; davor unsichtbar.
     const onScroll = () => setScrolled(window.scrollY > 80);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -43,14 +45,27 @@ export function SiteHeader() {
           aria-label="Hauptnavigation"
         >
           <ul onClick={closeMenu}>
-            <li><a href="#top">Start</a></li>
-            <li><a href="#ueber-mich">Über mich</a></li>
-            <li><a href="#leistungen">Leistungen</a></li>
-            <li><a href="#projekte">Projekte</a></li>
-            <li><a href="#referenzen">Referenzen</a></li>
-            <li><a href="#fachgebiete">Fachgebiete</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#kontakt" className="nav-cta">Kontakt</a></li>
+            <li><a href="#top">{t(tx.nav.start, lang)}</a></li>
+            <li><a href="#ueber-mich">{t(tx.nav.about, lang)}</a></li>
+            <li><a href="#leistungen">{t(tx.nav.services, lang)}</a></li>
+            <li><a href="#projekte">{t(tx.nav.projects, lang)}</a></li>
+            <li><a href="#referenzen">{t(tx.nav.references, lang)}</a></li>
+            <li><a href="#fachgebiete">{t(tx.nav.domains, lang)}</a></li>
+            <li><a href="#faq">{t(tx.nav.faq, lang)}</a></li>
+            <li><a href="#kontakt" className="nav-cta">{t(tx.nav.contact, lang)}</a></li>
+            <li className="lang-li">
+              <button
+                type="button"
+                className="lang-toggle"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  cycleLang();
+                }}
+                aria-label={t(tx.nav.langAria, lang)}
+              >
+                {LANG_LABELS[lang]}
+              </button>
+            </li>
           </ul>
         </nav>
       </div>

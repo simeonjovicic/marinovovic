@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
 export function StickyMobileCta() {
+  const { lang } = useLang();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export function StickyMobileCta() {
       aria-hidden={!show}
       tabIndex={show ? 0 : -1}
     >
-      Kontakt aufnehmen
+      {t(tx.sticky.cta, lang)}
       <svg viewBox="0 0 20 20" aria-hidden="true" className="btn-icon">
         <path
           d="M4 10h11M11 6l4 4-4 4"

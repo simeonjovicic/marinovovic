@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
 const SERVICES = [
   {
@@ -78,6 +80,9 @@ const SERVICES = [
 ];
 
 export function Services() {
+  const { lang } = useLang();
+  const tr = tx.services;
+  const items = tr.items;
   const listRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -146,21 +151,15 @@ export function Services() {
       <div className="container">
         <div className="section-intro">
           <Reveal className="section-head">
-            <span className="badge">Leistungen</span>
+            <span className="badge">{t(tr.badge, lang)}</span>
             <h2 className="section-title">
-              Wie ich Unternehmen <span className="accent">unterstütze</span>
+              {t(tr.titleStart, lang)} <span className="accent">{t(tr.titleAccent, lang)}</span>
             </h2>
           </Reveal>
 
           <Reveal as="p" className="section-copy">
-            <span className="hide-mobile">
-              Von der ersten Einschätzung bis zur produktiven Anwendung: Die
-              Arbeit ist auf Klarheit, technische Substanz und Transfer in den
-              Alltag ausgelegt.
-            </span>
-            <span className="show-mobile">
-              Von der ersten Einschätzung bis zur produktiven Lösung.
-            </span>
+            <span className="hide-mobile">{t(tr.lead, lang)}</span>
+            <span className="show-mobile">{t(tr.leadMobile, lang)}</span>
           </Reveal>
         </div>
 
@@ -169,46 +168,49 @@ export function Services() {
             <div className="service-progress-bar" />
           </div>
 
-          {SERVICES.map((s, i) => (
-            <article key={s.num} className="service-item">
-              <div className="service-meta">
-                <Reveal>
-                  <span className="service-num">{s.num}</span>
-                  <span className="service-num-rule" aria-hidden="true" />
-                  <small className="service-label">{s.label}</small>
-                  <span className="service-counter" aria-hidden="true">
-                    {i + 1} / {SERVICES.length}
-                  </span>
-                </Reveal>
-              </div>
+          {items.map((s, i) => {
+            const num = String(i + 1).padStart(2, "0");
+            return (
+              <article key={num} className="service-item">
+                <div className="service-meta">
+                  <Reveal>
+                    <span className="service-num">{num}</span>
+                    <span className="service-num-rule" aria-hidden="true" />
+                    <small className="service-label">{t(s.label, lang)}</small>
+                    <span className="service-counter" aria-hidden="true">
+                      {i + 1} / {items.length}
+                    </span>
+                  </Reveal>
+                </div>
 
-              <div className="service-content">
-                <Reveal as="h3">{s.title}</Reveal>
-                <Reveal>
-                  <p className="hide-mobile">{s.text}</p>
-                  <p className="show-mobile">{s.short}</p>
-                </Reveal>
-                <Reveal as="ul" className="service-features">
-                  {s.features.map((f) => (
-                    <li key={f}>
-                      <Check size={16} strokeWidth={2.25} aria-hidden="true" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </Reveal>
-              </div>
-            </article>
-          ))}
+                <div className="service-content">
+                  <Reveal as="h3">{t(s.title, lang)}</Reveal>
+                  <Reveal>
+                    <p className="hide-mobile">{t(s.text, lang)}</p>
+                    <p className="show-mobile">{t(s.short, lang)}</p>
+                  </Reveal>
+                  <Reveal as="ul" className="service-features">
+                    {t(s.features, lang).map((f) => (
+                      <li key={f}>
+                        <Check size={16} strokeWidth={2.25} aria-hidden="true" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </Reveal>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         <div className="service-dots" aria-hidden="true">
-          {SERVICES.map((s, i) => (
+          {items.map((_, i) => (
             <button
-              key={s.num}
+              key={i}
               type="button"
               className={`service-dot${i === active ? " is-active" : ""}`}
               onClick={() => goTo(i)}
-              aria-label={`Leistung ${i + 1} anzeigen`}
+              aria-label={`${t(tr.showLabel, lang)} ${i + 1}`}
             />
           ))}
         </div>

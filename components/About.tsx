@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { Reveal } from "./Reveal";
+import { useLang } from "./LangProvider";
+import { tx, t } from "@/lib/i18n";
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 20 20" aria-hidden="true" className="btn-icon">
@@ -14,7 +18,17 @@ const ArrowIcon = () => (
   </svg>
 );
 
+const STAT_NUMS = ["15", "85", "10", "100"];
+const STAT_SUFFIXES = ["+", "%+", "+", "%"];
+
 export function About() {
+  const { lang } = useLang();
+  const tr = tx.about;
+  const stats = tr.stats.map((s, i) => ({
+    num: STAT_NUMS[i],
+    suffix: STAT_SUFFIXES[i],
+    title: t(s, lang),
+  }));
   return (
     <section className="section" id="ueber-mich">
       <div className="container about-grid">
@@ -31,79 +45,53 @@ export function About() {
           </div>
           <div className="about-photo-caption">
             <span>Emil Marinov</span>
-            <small>KI-Beratung · Lehre · Umsetzung</small>
+            <small>{t(tr.portraitCaption, lang)}</small>
           </div>
         </Reveal>
 
         <div className="about-content">
-          <Reveal as="span" className="badge">Über mich</Reveal>
+          <Reveal as="span" className="badge">{t(tr.badge, lang)}</Reveal>
 
           <Reveal as="h2" className="section-title">
-            Akademisch fundiert.{" "}
-            <span className="accent">Praktisch anwendbar.</span>
+            {t(tr.titleStart, lang)}{" "}
+            <span className="accent">{t(tr.titleAccent, lang)}</span>
           </Reveal>
 
           <Reveal className="prose">
+            <p>{t(tr.para1, lang)}</p>
+            <p className="hide-mobile">{t(tr.para2, lang)}</p>
             <p>
-              Ich bin Dozent an einer Fachhochschule und Professor an einer HTL.
-              Meine Arbeit verbindet komplexe Mathematik mit moderner
-              künstlicher Intelligenz — akademisch fundiert, praktisch anwendbar.
-            </p>
-            <p className="hide-mobile">
-              In über zehn Jahren Lehre habe ich mehr als 50 Diplom- und
-              Abschlussprojekte fachlich begleitet — von der Themenfindung
-              über die methodische Tiefe bis zur Verteidigung.
-            </p>
-            <p>
-              <span className="hide-mobile">
-                Für Unternehmen bin ich Berater, Sparringspartner und Umsetzer:
-                Ich helfe dabei, KI-Projekte nicht beim Proof-of-Concept enden
-                zu lassen, sondern in produktive, messbare Lösungen zu überführen.
-              </span>
-              <span className="show-mobile">
-                Für Unternehmen Berater und Umsetzer — KI-Projekte bis zur
-                produktiven Lösung führen.
-              </span>
+              <span className="hide-mobile">{t(tr.para3, lang)}</span>
+              <span className="show-mobile">{t(tr.para3Mobile, lang)}</span>
             </p>
           </Reveal>
 
           <Reveal as="ul" className="approach-list">
-            <li>
-              <span>01</span>
-              <strong>Use Case schärfen</strong>
-            </li>
-            <li>
-              <span>02</span>
-              <strong>Architektur etablieren</strong>
-            </li>
-            <li>
-              <span>03</span>
-              <strong>Transfer &amp; Enablement</strong>
-            </li>
+            {tr.approach.map((item, i) => (
+              <li key={i}>
+                <span>{String(i + 1).padStart(2, "0")}</span>
+                <strong>{t(item, lang)}</strong>
+              </li>
+            ))}
           </Reveal>
 
           <Reveal as="dl" className="stats">
-            <div className="stat">
-              <dt><span className="stat-value">15<small>+</small></span></dt>
-              <dd>B2B-Integrationen</dd>
-            </div>
-            <div className="stat">
-              <dt><span className="stat-value">85<small>%+</small></span></dt>
-              <dd>Prozessbeschleunigung</dd>
-            </div>
-            <div className="stat">
-              <dt><span className="stat-value">10<small>+</small></span></dt>
-              <dd>Jahre Lehrerfahrung</dd>
-            </div>
-            <div className="stat">
-              <dt><span className="stat-value">100<small>%</small></span></dt>
-              <dd>DSGVO-konform</dd>
-            </div>
+            {stats.map((stat, i) => (
+              <div className="stat" key={i}>
+                <dt>
+                  <span className="stat-value">
+                    {stat.num}
+                    <small>{stat.suffix}</small>
+                  </span>
+                </dt>
+                <dd>{stat.title}</dd>
+              </div>
+            ))}
           </Reveal>
 
           <Reveal>
             <a href="#kontakt" className="btn btn-primary">
-              Kontakt aufnehmen
+              {t(tr.cta, lang)}
               <ArrowIcon />
             </a>
           </Reveal>
