@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 const NAV_ITEMS = [
-  { href: "#top", label: "Start" },
   { href: "#ueber-mich", label: "Über mich" },
   { href: "#leistungen", label: "Leistungen" },
   { href: "#projekte", label: "Projekte" },
@@ -17,8 +16,9 @@ export function SiteHeader() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 80);
+      setScrolled(window.scrollY > 120);
     };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -34,108 +34,78 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+      className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ease-out ${
         scrolled
-          ? "md:top-4 md:flex md:justify-center md:px-4 md:opacity-100 md:pointer-events-auto md:bg-transparent md:backdrop-blur-none md:border-b-0 top-0 py-2 bg-[#E8E8E6]/95 backdrop-blur-md border-b border-black/10"
-          : "top-0 py-3 md:py-4 bg-transparent border-b border-black/5 md:border-b-0 md:opacity-0 md:pointer-events-none md:-translate-y-4"
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-6 pointer-events-none"
       }`}
     >
+      {/* Full-width liquid glass pill */}
       <div
-        className={`w-full transition-all duration-500 ease-out ${
-          scrolled
-            ? "md:max-w-fit md:bg-[#121212]/80 md:backdrop-blur-xl md:border md:border-white/10 md:shadow-2xl md:rounded-full md:px-3 md:py-2 md:flex md:items-center container flex items-center justify-between h-12 md:h-auto"
-            : "container flex items-center justify-between h-12 md:h-14"
-        }`}
+        className="relative bg-[#0A0A0A]/55 backdrop-blur-2xl backdrop-saturate-150 border border-white/15 shadow-[0_10px_36px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.18),inset_0_-1px_0_rgba(0,0,0,0.2)] rounded-full pl-3 pr-3 py-2 flex items-center justify-between gap-4 before:content-[''] before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-white/10 before:via-white/[0.02] before:to-transparent before:pointer-events-none"
       >
-        {/* Brand Copyright - hidden in desktop scrolled floating pill */}
+        {/* Logo placeholder (left) */}
         <a
           href="#top"
-          className={`font-semibold tracking-tight hover:opacity-75 transition-opacity truncate ${
-            scrolled
-              ? "text-black text-xs sm:text-sm md:hidden"
-              : "text-black text-xs sm:text-sm max-w-[70%] sm:max-w-none"
-          }`}
+          className="flex items-center gap-2 text-white hover:opacity-75 transition-opacity flex-shrink-0"
           aria-label="Startseite Emil Marinov"
         >
-          <span className="sm:hidden">© Emil Marinov</span>
-          <span className="hidden sm:inline">© Emil Marinov — KI-Consulting &amp; Lehre</span>
+          <span
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-[#FF4D2D] text-white text-[11px] font-bold tracking-tight"
+            aria-hidden="true"
+          >
+            EM
+          </span>
+          <span className="hidden sm:inline text-sm font-semibold tracking-tight">
+            Emil Marinov
+          </span>
         </a>
 
-        {/* Mobile menu trigger - always visible on mobile */}
-        <button
-          type="button"
-          className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 text-black flex-shrink-0"
-          aria-expanded={open}
-          aria-label={open ? "Navigation schließen" : "Navigation öffnen"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span
-            className={`block w-5 h-0.5 bg-black transition-transform ${
-              open ? "translate-y-2 rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-black transition-opacity ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block w-5 h-0.5 bg-black transition-transform ${
-              open ? "-translate-y-2 -rotate-45" : ""
-            }`}
-          />
-        </button>
-
-        {/* Desktop Navigation list */}
-        <nav
-          className="hidden md:flex items-center"
-          aria-label="Hauptnavigation"
-        >
-          <ul
-            className={`flex flex-row items-center ${
-              scrolled ? "gap-1" : "gap-6"
-            }`}
-          >
+        {/* Desktop nav (center) */}
+        <nav className="hidden md:flex" aria-label="Hauptnavigation">
+          <ul className="flex flex-row items-center gap-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className={`text-xs font-semibold uppercase tracking-wider transition-all duration-300 px-3 py-1.5 rounded-full ${
-                    scrolled
-                      ? "text-[#A0A0A0] hover:text-white hover:bg-white/5"
-                      : "text-black/70 hover:text-black hover:bg-black/5"
-                  }`}
+                  className="text-xs font-semibold uppercase tracking-wider text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300 px-3 py-1.5 rounded-full"
                 >
                   {item.label}
                 </a>
               </li>
             ))}
-            <li>
-              <a
-                href="#kontakt"
-                className={`text-xs font-semibold uppercase tracking-wider transition-all duration-300 px-4 py-2 rounded-full ${
-                  scrolled
-                    ? "bg-[#FF4D2D] text-white hover:bg-[#E63E1F]"
-                    : "bg-black text-white hover:bg-black/80"
-                }`}
-              >
-                Kontakt
-              </a>
-            </li>
           </ul>
         </nav>
+
+        {/* Kontakt (right) - desktop */}
+        <a
+          href="#kontakt"
+          className="hidden md:inline-flex text-xs font-semibold uppercase tracking-wider bg-[#FF4D2D] text-white hover:bg-[#E63E1F] transition-colors px-4 py-2 rounded-full flex-shrink-0"
+        >
+          Kontakt
+        </a>
+
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 text-white flex-shrink-0"
+          aria-expanded={open}
+          aria-label={open ? "Navigation schließen" : "Navigation öffnen"}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className={`block w-5 h-0.5 bg-white transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-white transition-opacity ${open ? "opacity-0" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-white transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+        </button>
       </div>
 
-      {/* Mobile Navigation Dropdown */}
+      {/* Mobile dropdown */}
       {open && (
         <nav
-          className="md:hidden absolute top-full left-3 right-3 mt-2 bg-[#E8E8E6] border border-black/10 rounded-2xl p-4 shadow-xl"
+          className="md:hidden absolute top-full left-0 right-0 mt-2 bg-white border border-black/10 rounded-2xl p-4 shadow-xl pointer-events-auto"
           aria-label="Mobile Hauptnavigation"
         >
-          <ul
-            className="flex flex-col w-full gap-1"
-            onClick={() => setOpen(false)}
-          >
+          <ul className="flex flex-col w-full gap-1" onClick={() => setOpen(false)}>
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <a
@@ -149,7 +119,7 @@ export function SiteHeader() {
             <li className="mt-2">
               <a
                 href="#kontakt"
-                className="block text-sm font-semibold uppercase tracking-wider bg-black text-white hover:bg-[#FF4D2D] px-4 py-3 rounded-lg text-center transition-colors"
+                className="block text-sm font-semibold uppercase tracking-wider bg-black text-white hover:bg-black/80 px-4 py-3 rounded-lg text-center transition-colors"
               >
                 Kontakt
               </a>

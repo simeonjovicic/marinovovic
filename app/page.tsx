@@ -15,39 +15,13 @@ export default function HomePage() {
   return (
     <>
       <SiteHeader />
-      <main id="hauptinhalt" className="relative z-10 bg-[#050505] overflow-hidden">
+      <main id="hauptinhalt" className="relative z-10 bg-[#050505] overflow-x-clip">
         
         {/* HERO SECTION */}
         <Hero />
 
-        {/* =================================================================
-           KAPITEL 01: PROFIL & PHILOSOPHIE
-           ================================================================= */}
-        <section className="w-full bg-[#050505] pt-20 md:pt-32 lg:pt-40 pb-12 md:pb-20 flex flex-col items-center border-t border-white/5">
-          <div className="max-w-7xl mx-auto w-full px-6 md:px-12">
-            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
-              // Kapitel 01
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter mt-3 md:mt-4 leading-none">
-              Profil &amp; Philosophie
-            </h2>
-          </div>
-        </section>
         <About />
 
-        {/* =================================================================
-           KAPITEL 02: EXPERTISE & CASES
-           ================================================================= */}
-        <section className="w-full bg-[#050505] pt-20 md:pt-32 lg:pt-40 pb-12 md:pb-20 flex flex-col items-center border-t border-white/5">
-          <div className="max-w-7xl mx-auto w-full px-6 md:px-12">
-            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
-              // Kapitel 02
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter mt-3 md:mt-4 leading-none">
-              Expertise &amp; Case Studies
-            </h2>
-          </div>
-        </section>
         <Services />
         <TechStack />
         <Showcase />

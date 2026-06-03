@@ -59,7 +59,7 @@ export function References() {
         
         {/* Sub-Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/10 pb-6 w-full">
-          <h3 className="text-2xl md:text-3xl font-extrabold tracking-tighter text-white uppercase">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none">
             Referenzen &amp; Akademisches Netzwerk
           </h3>
           <p className="text-[#A0A0A0] text-xs md:text-sm max-w-md leading-relaxed">

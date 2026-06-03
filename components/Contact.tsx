@@ -164,7 +164,7 @@ export function Contact() {
                   onChange={(e) => set("name", e.target.value)}
                   className={`w-full bg-transparent border-b ${
                     errors.name ? 'border-red-500' : 'border-white/15'
-                  } py-3 text-white font-medium text-sm md:text-base focus:outline-none transition-colors duration-300`}
+                  } py-3 text-white font-medium text-sm md:text-base placeholder:text-white/25 placeholder:font-normal focus:outline-none transition-colors duration-300`}
                   placeholder="Max Mustermann"
                 />
                 <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FF4D2D] transition-all duration-300 group-focus-within/field:w-full" />
@@ -182,7 +182,7 @@ export function Contact() {
                   onChange={(e) => set("email", e.target.value)}
                   className={`w-full bg-transparent border-b ${
                     errors.email ? 'border-red-500' : 'border-white/15'
-                  } py-3 text-white font-medium text-sm md:text-base focus:outline-none transition-colors duration-300`}
+                  } py-3 text-white font-medium text-sm md:text-base placeholder:text-white/25 placeholder:font-normal focus:outline-none transition-colors duration-300`}
                   placeholder="max@beispiel.at"
                 />
                 <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FF4D2D] transition-all duration-300 group-focus-within/field:w-full" />
@@ -200,7 +200,7 @@ export function Contact() {
                   onChange={(e) => set("message", e.target.value)}
                   className={`w-full bg-transparent border-b ${
                     errors.message ? 'border-red-500' : 'border-white/15'
-                  } py-3 text-white font-medium text-sm md:text-base focus:outline-none transition-colors duration-300 resize-none`}
+                  } py-3 text-white font-medium text-sm md:text-base placeholder:text-white/25 placeholder:font-normal focus:outline-none transition-colors duration-300 resize-none`}
                   placeholder="Projekt, Ziel oder kurze Frage..."
                 />
                 <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#FF4D2D] transition-all duration-300 group-focus-within/field:w-full" />

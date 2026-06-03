@@ -1,150 +1,231 @@
 "use client";
 
-import { useState } from "react";
 import { Reveal } from "./Reveal";
 
-const PROCESS_STEPS = [
+type Step = {
+  num: string;
+  title: string;
+  desc: string;
+  duration: string;
+  tint: string; // subtle warm/cool tint for inner card so each post-it has personality
+  rotate: number;
+  side: "left" | "right";
+};
+
+const PROCESS_STEPS: Step[] = [
   {
-    step: "01",
+    num: "01",
     title: "Potenzialanalyse",
-    desc: "In einem gemeinsamen Audit analysieren wir Ihre Datenstrukturen und manuellen Prozesse, um rentable KI-Use-Cases zu identifizieren.",
-    deliverable: "Roadmap & ROI-Schätzung",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-[#FF4D2D] group-hover:scale-125 transition-transform duration-300">
-        <circle cx="11" cy="11" r="8" strokeOpacity="0.3" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        <path d="M11 8v6M8 11h6" strokeLinecap="round" />
-      </svg>
-    ),
+    desc: "Gemeinsames Audit Ihrer Datenstrukturen und manuellen Prozesse — wir identifizieren rentable KI-Use-Cases.",
+    duration: "30 Min",
+    tint: "#1E1714", // warm coral-tinted dark
+    rotate: -3,
+    side: "left",
   },
   {
-    step: "02",
+    num: "02",
     title: "Prototyping (PoC)",
-    desc: "Schnelle Umsetzung eines minimal lauffähigen Systems innerhalb weniger Tage zur Validierung der Machbarkeit und Leistung.",
-    deliverable: "Funktionaler PoC / Sandbox",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-[#FF4D2D] group-hover:scale-125 transition-transform duration-300">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    desc: "Minimal lauffähiges System in wenigen Tagen — Validierung der Machbarkeit und Performance.",
+    duration: "1 Woche",
+    tint: "#16191E", // cool blue-tinted dark
+    rotate: 2,
+    side: "right",
   },
   {
-    step: "03",
+    num: "03",
     title: "Sichere Architektur",
-    desc: "Konzeptionierung des Systemdesigns nach höchsten Sicherheits- und Datenschutzstandards (DSGVO-konforme Vektorsuche & lokale LLMs).",
-    deliverable: "Architektur- & Sicherheitskonzept",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-[#FF4D2D] group-hover:scale-125 transition-transform duration-300">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" strokeOpacity="0.3" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </svg>
-    ),
+    desc: "Systemdesign nach höchsten Datenschutzstandards. DSGVO-konforme Vektorsuche, lokale LLMs.",
+    duration: "2 Wochen",
+    tint: "#1A171E", // slight purple-tinted dark
+    rotate: -2,
+    side: "left",
   },
   {
-    step: "04",
+    num: "04",
     title: "API-Integration",
-    desc: "Nahtlose Anbindung der Automatisierungs-Pipelines und KI-Agents an Ihre bestehende CRM-, ERP- und SQL-Infrastruktur.",
-    deliverable: "Produktives API-Setup",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-[#FF4D2D] group-hover:scale-125 transition-transform duration-300">
-        <path d="M16 18l6-6-6-6M8 6L2 12l6 6M12 2v20" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    desc: "Nahtlose Anbindung der Pipelines und KI-Agents an Ihre CRM-, ERP- und SQL-Infrastruktur.",
+    duration: "Variabel",
+    tint: "#1E1A14", // warm beige-tinted dark
+    rotate: 3,
+    side: "right",
   },
   {
-    step: "05",
+    num: "05",
     title: "Team-Enablement",
-    desc: "Übergabe der Systeme gekoppelt mit praxisnahen Workshops für Ihre Mitarbeiter (n8n, Prompting), um Unabhängigkeit zu sichern.",
-    deliverable: "Team-Schulung & Playbook",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-[#FF4D2D] group-hover:scale-125 transition-transform duration-300">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M6 12v5c0 2 2.5 3 6 3s6-1 6-3v-5" strokeOpacity="0.3" />
-      </svg>
-    ),
+    desc: "Übergabe mit praxisnahen Workshops für Ihre Mitarbeiter — Unabhängigkeit gesichert.",
+    duration: "1 Tag",
+    tint: "#161A1E", // cool blue-tinted dark
+    rotate: -2,
+    side: "left",
   },
 ];
 
-// Interactive Process Step Card with mouse coordinates radial glow
-function ProcessStepCard({ step }: { step: typeof PROCESS_STEPS[0] }) {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
+function GlassyPin() {
   return (
-    <div 
-      className="bg-[#121212]/50 border border-white/5 hover:border-[#FF4D2D]/35 rounded-3xl p-5 md:p-6 flex flex-col justify-between md:min-h-[300px] transition-all duration-500 group relative z-10 overflow-hidden cursor-default hover:-translate-y-1"
-      onMouseMove={handleMouseMove}
+    <div
+      aria-hidden="true"
+      className="absolute -top-3 left-1/2 -translate-x-1/2 z-30 w-7 h-7"
     >
-      {/* Interactive Radial Hover Glow */}
-      <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
+      <div className="absolute top-5 left-1/2 -translate-x-1/2 w-4 h-1.5 rounded-full bg-black/40 blur-[2px]" />
+      <div
+        className="relative w-full h-full rounded-full"
         style={{
-          background: `radial-gradient(280px circle at ${coords.x}px ${coords.y}px, rgba(255, 77, 45, 0.08), transparent 80%)`
+          background: `radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.35) 8%, #FF4D2D 40%, #E63E1F 65%, #8A2412 100%)`,
+          boxShadow: `
+            0 4px 12px rgba(0,0,0,0.6),
+            inset -2px -3px 4px rgba(0,0,0,0.4),
+            inset 1px 1px 1px rgba(255,255,255,0.5)
+          `,
         }}
       />
-      
-      <Reveal as="div" className="relative z-10 h-full flex flex-col justify-between w-full">
-        <div>
-          {/* Step Top Bar with Number & Icon */}
-          <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-5">
-            <span className="text-3xl font-black outline-text group-hover:text-[#FF4D2D] tracking-tighter select-none transition-colors duration-500">
-              {step.step}
+      <div className="absolute top-1 left-1.5 w-1.5 h-1.5 rounded-full bg-white/85 blur-[0.5px]" />
+    </div>
+  );
+}
+
+function PostIt({ step }: { step: Step }) {
+  return (
+    <div
+      className="relative group transition-transform duration-500 hover:-translate-y-1 hover:rotate-0 w-full max-w-[360px] md:max-w-[420px]"
+      style={{ transform: `rotate(${step.rotate}deg)` }}
+    >
+      <GlassyPin />
+
+      {/* Outer "paper" frame */}
+      <div
+        className="relative bg-[#161616] border border-white/10 rounded-2xl p-4 pt-8 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.7),0_8px_16px_-6px_rgba(0,0,0,0.5)] transition-colors duration-500 group-hover:border-[#FF4D2D]/30"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 8%), radial-gradient(circle at 50% 0%, rgba(0,0,0,0.35) 0%, transparent 30%)",
+        }}
+      >
+        {/* Inner colored post-it */}
+        <div
+          className="relative rounded-xl p-6 md:p-8 flex flex-col gap-4 min-h-[260px] md:min-h-[300px] border border-white/5"
+          style={{
+            backgroundColor: step.tint,
+            backgroundImage:
+              "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 35%, rgba(0,0,0,0.25) 100%)",
+          }}
+        >
+          {/* Top: cursive serif number + duration */}
+          <div className="flex items-start justify-between">
+            <span
+              className="font-serif italic text-4xl md:text-[2.6rem] leading-none tracking-tight text-[#FF4D2D] lowercase"
+              style={{
+                fontFamily:
+                  'var(--font-serif), "Source Serif 4", Georgia, serif',
+              }}
+            >
+              {step.num}
             </span>
-            <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-[#FF4D2D]/40 group-hover:bg-[#FF4D2D]/5 transition-all duration-500">
-              {step.icon}
-            </div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-white/40 mt-1">
+              {step.duration}
+            </span>
           </div>
-          
-          {/* Step Title & Description */}
-          <h4 className="text-lg font-bold text-white uppercase tracking-tight mb-2 group-hover:text-[#FF4D2D] transition-colors duration-500">
+
+          {/* Title */}
+          <h4 className="text-xl md:text-[1.65rem] font-bold leading-[1.15] tracking-tight text-white uppercase mt-1">
             {step.title}
           </h4>
-          <p className="text-xs md:text-sm text-[#A0A0A0] leading-relaxed mb-6 hidden md:block">
+
+          {/* Description */}
+          <p className="text-sm md:text-[14px] leading-relaxed text-[#A0A0A0]">
             {step.desc}
           </p>
         </div>
-
-        {/* B2B Deliverable Callout Box */}
-        <div className="bg-[#1C1C1C] border border-white/5 rounded-2xl p-4 mt-auto group-hover:bg-[#252525] group-hover:border-[#FF4D2D]/20 transition-all duration-500">
-          <span className="text-[10px] font-bold text-[#FF4D2D] uppercase tracking-wider block mb-1">Scope / Ergebnis:</span>
-          <span className="text-xs text-white/90 font-medium block">{step.deliverable}</span>
-        </div>
-      </Reveal>
+      </div>
     </div>
   );
 }
 
 export function Process() {
   return (
-    <section 
-      className="w-full bg-[#0C0C0C] border-b border-white/5 py-12 md:py-20 mesh-grid relative" 
+    <section
+      className="w-full bg-[#0C0C0C] border-t border-b border-white/5 py-16 md:py-24 mesh-grid relative overflow-hidden"
       id="methodik"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-[#0C0C0C]/30 via-transparent to-[#0C0C0C]/90 pointer-events-none" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 flex flex-col gap-8">
-        
-        {/* Sub-Header */}
+
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 flex flex-col gap-14 md:gap-20">
+        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/10 pb-6 w-full">
-          <h3 className="text-2xl md:text-3xl font-extrabold tracking-tighter text-white uppercase">
-            Der Weg zur Implementierung
-          </h3>
+          <div className="flex flex-col gap-3">
+            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
+              // Methodik
+            </span>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none">
+              Der Weg zur Implementierung
+            </h3>
+          </div>
           <p className="text-[#A0A0A0] text-xs md:text-sm max-w-md leading-relaxed">
-            Ein transparenter, strukturierter Ablauf garantiert die risikofreie Integration moderner Technologien in Ihren Arbeitsalltag.
+            Strukturierter Ablauf — risikofreie Integration in Ihren Arbeitsalltag.
           </p>
         </div>
 
-        {/* Connected Roadmap Timeline */}
-        <div className="roadmap-track grid grid-cols-1 lg:grid-cols-5 gap-8 w-full mt-4">
-          {PROCESS_STEPS.map((step, i) => (
-            <ProcessStepCard key={i} step={step} />
-          ))}
-        </div>
+        {/* Zigzag pinboard layout */}
+        <div className="relative">
+          {/* Dashed coral connectors between cards */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 1000 1900"
+            preserveAspectRatio="none"
+            className="hidden md:block absolute inset-0 w-full h-full pointer-events-none"
+          >
+            <path
+              d="M 250 220 C 380 300, 600 280, 760 360"
+              fill="none"
+              stroke="#FF4D2D"
+              strokeOpacity="0.3"
+              strokeWidth="1.5"
+              strokeDasharray="3 8"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 760 600 C 600 700, 380 680, 250 760"
+              fill="none"
+              stroke="#FF4D2D"
+              strokeOpacity="0.3"
+              strokeWidth="1.5"
+              strokeDasharray="3 8"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 250 1000 C 380 1080, 600 1060, 760 1140"
+              fill="none"
+              stroke="#FF4D2D"
+              strokeOpacity="0.3"
+              strokeWidth="1.5"
+              strokeDasharray="3 8"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 760 1380 C 600 1480, 380 1460, 250 1540"
+              fill="none"
+              stroke="#FF4D2D"
+              strokeOpacity="0.3"
+              strokeWidth="1.5"
+              strokeDasharray="3 8"
+              strokeLinecap="round"
+            />
+          </svg>
 
+          <ul className="flex flex-col gap-14 md:gap-20 relative z-10">
+            {PROCESS_STEPS.map((step) => (
+              <Reveal
+                as="li"
+                key={step.num}
+                className={`flex ${
+                  step.side === "left"
+                    ? "justify-start md:pl-4 lg:pl-12"
+                    : "justify-end md:pr-4 lg:pr-12"
+                }`}
+              >
+                <PostIt step={step} />
+              </Reveal>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

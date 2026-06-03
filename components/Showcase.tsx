@@ -96,19 +96,19 @@ export function Showcase() {
   return (
     <section className="section" id="projekte">
       <div className="container">
-        <div className="section-intro">
-          <Reveal className="section-head">
-            <span className="badge">Projekte</span>
-            <h2 className="section-title">
-              Ausgewählte <span className="accent">Arbeiten</span>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-white/10 pb-6 w-full mb-12">
+          <Reveal className="flex flex-col gap-3">
+            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
+              // Projekte
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none">
+              Ausgewählte Arbeiten
             </h2>
           </Reveal>
 
-          <Reveal as="p" className="section-copy">
+          <Reveal as="p" className="text-[#A0A0A0] text-xs md:text-sm max-w-md leading-relaxed">
             <span className="hide-mobile">
-              Ein Auszug aus Beratungs- und Umsetzungsprojekten der letzten
-              Jahre — von RAG-Systemen über Agenten-Workflows bis zu Lehr- und
-              Strategie-Formaten.
+              Ein Auszug aus Beratungs- und Umsetzungsprojekten — von RAG-Systemen bis zu Strategie-Formaten.
             </span>
             <span className="show-mobile">
               Auszug aktueller Projekte — RAG, Agenten und Workshops.
