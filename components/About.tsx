@@ -74,30 +74,30 @@ export function About() {
             </li>
             <li>
               <span>02</span>
-              <strong>Architektur greifbar machen</strong>
+              <strong>Architektur etablieren</strong>
             </li>
             <li>
               <span>03</span>
-              <strong>In Teams verankern</strong>
+              <strong>Transfer &amp; Enablement</strong>
             </li>
           </Reveal>
 
           <Reveal as="dl" className="stats">
             <div className="stat">
+              <dt><span className="stat-value">15<small>+</small></span></dt>
+              <dd>B2B-Integrationen</dd>
+            </div>
+            <div className="stat">
+              <dt><span className="stat-value">85<small>%+</small></span></dt>
+              <dd>Prozessbeschleunigung</dd>
+            </div>
+            <div className="stat">
               <dt><span className="stat-value">10<small>+</small></span></dt>
               <dd>Jahre Lehrerfahrung</dd>
             </div>
             <div className="stat">
-              <dt><span className="stat-value">300<small>+</small></span></dt>
-              <dd>Studierende ausgebildet</dd>
-            </div>
-            <div className="stat">
-              <dt><span className="stat-value">50<small>+</small></span></dt>
-              <dd>Diplomprojekte begleitet</dd>
-            </div>
-            <div className="stat">
-              <dt><span className="stat-value">15<small>+</small></span></dt>
-              <dd>Workshops &amp; Schulungen</dd>
+              <dt><span className="stat-value">100<small>%</small></span></dt>
+              <dd>DSGVO-konform</dd>
             </div>
           </Reveal>
 

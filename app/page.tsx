@@ -1,6 +1,5 @@
 import { SiteHeader }      from "@/components/SiteHeader";
 import { Hero }            from "@/components/Hero";
-import { LogoStrip }       from "@/components/LogoStrip";
 import { About }           from "@/components/About";
 import { Services }        from "@/components/Services";
 import { Showcase }        from "@/components/Showcase";
@@ -17,7 +16,6 @@ export default function HomePage() {
       <SiteHeader />
       <main id="hauptinhalt">
         <Hero />
-        <LogoStrip />
         <About />
         <Services />
         <Showcase />
