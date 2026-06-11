@@ -2257,3 +2257,56 @@ h2.faq-title,
 @media (prefers-reduced-motion: reduce) {
   .sticky-cta { transition: opacity 0.2s linear; }
 }
+
+/* =================================================================
+   CINEMATIC SCROLLING
+   ================================================================= */
+
+/* Scroll-Hinweis im Hero */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: max-content;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  pointer-events: auto;
+}
+.scroll-hint-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.scroll-hint-line {
+  width: 1px;
+  height: 3rem;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-hint-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateY(-100%);
+  animation: scrollHintDrop 2.2s var(--ease) infinite;
+}
+@keyframes scrollHintDrop {
+  0%   { transform: translateY(-100%); }
+  55%  { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint-line::after { animation: none; }
+}
+@media (max-height: 640px) {
+  .scroll-hint { display: none; }
+}

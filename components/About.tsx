@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { Reveal } from "./Reveal";
+import { Parallax } from "./Parallax";
+import { CountUp } from "./CountUp";
 import { useLang } from "./LangProvider";
 import { tx, t } from "@/lib/i18n";
 
@@ -34,15 +36,17 @@ export function About() {
       <div className="container about-grid">
         <Reveal className="about-photo">
           <span className="deco-ring" aria-hidden="true" />
-          <div className="about-photo-card">
-            <Image
-              src="/emil-portrait.jpg"
-              alt="Emil Marinov im Porträt"
-              width={600}
-              height={780}
-              sizes="(max-width: 899px) 22rem, 24rem"
-            />
-          </div>
+          <Parallax amount={-14} className="about-photo-parallax">
+            <div className="about-photo-card">
+              <Image
+                src="/emil-portrait.jpg"
+                alt="Emil Marinov im Porträt"
+                width={600}
+                height={780}
+                sizes="(max-width: 899px) 22rem, 24rem"
+              />
+            </div>
+          </Parallax>
           <div className="about-photo-caption">
             <span>Emil Marinov</span>
             <small>{t(tr.portraitCaption, lang)}</small>
@@ -80,7 +84,7 @@ export function About() {
               <div className="stat" key={i}>
                 <dt>
                   <span className="stat-value">
-                    {stat.num}
+                    <CountUp value={parseInt(stat.num, 10)} />
                     <small>{stat.suffix}</small>
                   </span>
                 </dt>

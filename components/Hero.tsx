@@ -1,5 +1,12 @@
 "use client";
 
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
 import { Reveal } from "./Reveal";
 import { InfiniteGridBg } from "./InfiniteGridBg";
 import { HeroTitle } from "./HeroTitle";
@@ -21,13 +28,34 @@ const ArrowIcon = () => (
 
 export function Hero() {
   const { lang } = useLang();
-  return (
-    <section className="hero" id="top">
-      <div className="hero-bg">
-        <InfiniteGridBg />
-      </div>
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
 
-      <div className="hero-inner">
+  // Cinematic Exit: Inhalt fährt beim Scrollen langsamer mit,
+  // blendet aus und skaliert leicht zurück — wie eine Kamerafahrt.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const opacity = useTransform(scrollYProgress, [0, 0.55, 0.85], [1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
+
+  return (
+    <section className="hero" id="top" ref={ref}>
+      <motion.div
+        className="hero-bg"
+        style={reduce ? undefined : { y: bgY }}
+      >
+        <InfiniteGridBg />
+      </motion.div>
+
+      <motion.div
+        className="hero-inner"
+        style={reduce ? undefined : { y, opacity, scale }}
+      >
         <Reveal as="span" className="badge">
           {t(tx.hero.badge, lang)}
         </Reveal>
@@ -47,7 +75,17 @@ export function Hero() {
             {t(tx.hero.ctaSecondary, lang)}
           </a>
         </Reveal>
-      </div>
+      </motion.div>
+
+      <motion.a
+        href="#ueber-mich"
+        className="scroll-hint"
+        style={reduce ? undefined : { opacity: hintOpacity }}
+        aria-label="Scroll"
+      >
+        <span className="scroll-hint-label">Scroll</span>
+        <span className="scroll-hint-line" aria-hidden="true" />
+      </motion.a>
     </section>
   );
 }
