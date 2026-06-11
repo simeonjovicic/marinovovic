@@ -180,6 +180,7 @@ export function Process() {
               strokeWidth="1.5"
               strokeDasharray="3 8"
               strokeLinecap="round"
+              className="process-path"
             />
             <path
               d="M 760 600 C 600 700, 380 680, 250 760"
@@ -189,6 +190,7 @@ export function Process() {
               strokeWidth="1.5"
               strokeDasharray="3 8"
               strokeLinecap="round"
+              className="process-path"
             />
             <path
               d="M 250 1000 C 380 1080, 600 1060, 760 1140"
@@ -198,6 +200,7 @@ export function Process() {
               strokeWidth="1.5"
               strokeDasharray="3 8"
               strokeLinecap="round"
+              className="process-path"
             />
             <path
               d="M 760 1380 C 600 1480, 380 1460, 250 1540"
@@ -207,6 +210,7 @@ export function Process() {
               strokeWidth="1.5"
               strokeDasharray="3 8"
               strokeLinecap="round"
+              className="process-path"
             />
           </svg>
 
@@ -217,8 +221,8 @@ export function Process() {
                 key={step.num}
                 className={`flex ${
                   step.side === "left"
-                    ? "justify-start md:pl-4 lg:pl-12"
-                    : "justify-end md:pr-4 lg:pr-12"
+                    ? "reveal-left justify-start md:pl-4 lg:pl-12"
+                    : "reveal-right justify-end md:pr-4 lg:pr-12"
                 }`}
               >
                 <PostIt step={step} />

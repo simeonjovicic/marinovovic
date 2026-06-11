@@ -861,3 +861,35 @@ h2.faq-title,
 @media (prefers-reduced-motion: reduce) {
   .sticky-cta { transition: opacity 0.2s linear; }
 }
+
+/* =================================================================
+   CINEMATIC SCROLLING (dark)
+   ================================================================= */
+
+/* Scroll-Hint im Hero: Linie tropft nach unten */
+@keyframes scrollHintDrop {
+  0%   { transform: translateY(-100%); }
+  55%  { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+.animate-scroll-hint {
+  animation: scrollHintDrop 2.2s var(--ease-out-expo) infinite;
+}
+
+/* Gerichtete Reveals: Post-its kommen von ihrer Seite herein */
+.reveal.reveal-left  { transform: translate3d(-40px, 12px, 0); }
+.reveal.reveal-right { transform: translate3d(40px, 12px, 0); }
+.reveal.reveal-left.is-visible,
+.reveal.reveal-right.is-visible { transform: translate3d(0, 0, 0); }
+
+/* Prozess-Verbindungslinien: Dash-Fluss entlang des Pfads */
+@keyframes processDashFlow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -22; }
+}
+.process-path {
+  animation: processDashFlow 1.6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-hint, .process-path { animation: none; }
+}

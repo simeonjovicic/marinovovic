@@ -2,6 +2,7 @@
 
 import { Reveal } from "./Reveal";
 import { CountUp } from "./CountUp";
+import { ChapterTitle } from "./ChapterTitle";
 
 const STATS = [
   {
@@ -37,14 +38,7 @@ export function About() {
         <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 py-10 md:py-12 flex flex-col gap-6 md:gap-8">
 
           {/* Chapter title */}
-          <div className="flex flex-col gap-2 md:gap-3">
-            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
-              // Kapitel 01
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none">
-              Profil &amp; Philosophie
-            </h2>
-          </div>
+          <ChapterTitle kicker="// Kapitel 01" title="Profil & Philosophie" />
 
           {/* Bio headline */}
           <Reveal as="h3" className="text-xl sm:text-2xl md:text-3xl lg:text-[2.25rem] font-bold tracking-tighter leading-snug text-white max-w-5xl">

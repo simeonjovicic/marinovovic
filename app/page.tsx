@@ -10,6 +10,8 @@ import { FAQ } from "@/components/FAQ";
 import { Contact } from "@/components/Contact";
 import { SiteFooter } from "@/components/SiteFooter";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
+import { ChapterRail } from "@/components/ChapterRail";
+import { ChapterTitle } from "@/components/ChapterTitle";
 
 export default function HomePage() {
   return (
@@ -31,12 +33,7 @@ export default function HomePage() {
            ================================================================= */}
         <section className="w-full bg-[#050505] pt-20 md:pt-32 lg:pt-40 pb-12 md:pb-20 flex flex-col items-center border-t border-white/5">
           <div className="max-w-7xl mx-auto w-full px-6 md:px-12">
-            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
-              // Kapitel 03
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter mt-3 md:mt-4 leading-none">
-              Arbeitsweise &amp; Netzwerk
-            </h2>
+            <ChapterTitle kicker="// Kapitel 03" title="Arbeitsweise & Netzwerk" />
           </div>
         </section>
         <Process />
@@ -48,12 +45,7 @@ export default function HomePage() {
            ================================================================= */}
         <section className="w-full bg-[#050505] pt-20 md:pt-32 lg:pt-40 pb-12 md:pb-20 flex flex-col items-center border-t border-white/5">
           <div className="max-w-7xl mx-auto w-full px-6 md:px-12">
-            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
-              // Kapitel 04
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter mt-3 md:mt-4 leading-none">
-              Projekt starten
-            </h2>
+            <ChapterTitle kicker="// Kapitel 04" title="Projekt starten" />
           </div>
         </section>
         <Contact />
@@ -61,6 +53,7 @@ export default function HomePage() {
       </main>
       <SiteFooter />
       <StickyMobileCta />
+      <ChapterRail />
     </>
   );
 }

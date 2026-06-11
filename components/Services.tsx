@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
+import { ChapterTitle } from "./ChapterTitle";
 
 const PROJECTS_DATA = [
   {
@@ -449,12 +450,7 @@ export function Services() {
 
           {/* Chapter title (was standalone divider, now inline) */}
           <div className="flex flex-col gap-2 md:gap-3">
-            <span className="text-[10px] md:text-xs font-mono font-bold text-[#FF4D2D] uppercase tracking-[0.2em]">
-              // Kapitel 02
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none">
-              Expertise &amp; Case Studies
-            </h2>
+            <ChapterTitle kicker="// Kapitel 02" title="Expertise & Case Studies" />
             <p className="text-[#A0A0A0] text-xs md:text-sm max-w-2xl leading-relaxed mt-1">
               Ein Einblick in erfolgreiche Integrationen, prädiktive Berechnungen und Schulungsmaßnahmen.
             </p>

@@ -1,19 +1,56 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
+
+const EASE = [0.2, 0.7, 0.2, 1] as const;
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+
+  // Scroll-Parallax: Portrait und Name bewegen sich mit
+  // unterschiedlichem Tempo aus dem Bild — Tiefenwirkung.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, 220]);
+  const fade = useTransform(scrollYProgress, [0, 0.6, 0.9], [1, 1, 0]);
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+
   return (
     <section
+      ref={ref}
       className="bg-[#E8E8E6] text-[#0A0A0A] min-h-[100svh] flex flex-col justify-between px-4 sm:px-6 md:p-12 pt-20 md:pt-12 pb-6 md:pb-12 mesh-grid-light relative border-b border-black/10 overflow-hidden"
       id="top"
     >
       {/* Center Content: Portrait + Overlapping Name */}
-      <div className="relative flex-grow flex items-center justify-center my-2 md:my-6 max-w-7xl mx-auto w-full">
+      <motion.div
+        className="relative flex-grow flex items-center justify-center my-2 md:my-6 max-w-7xl mx-auto w-full"
+        style={reduce ? undefined : { opacity: fade }}
+      >
 
         {/* Portrait Container */}
-        <div className="relative w-full max-w-[320px] sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto flex items-center justify-center z-10">
-          <div className="relative h-[60vh] sm:h-[62vh] md:h-[65vh] lg:h-[72vh] w-full aspect-[4/5] overflow-hidden rounded-2xl md:rounded-[1.5rem] group/portrait">
+        <motion.div
+          className="relative w-full max-w-[320px] sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto flex items-center justify-center z-10"
+          style={reduce ? undefined : { y: portraitY }}
+        >
+          <motion.div
+            className="relative h-[60vh] sm:h-[62vh] md:h-[65vh] lg:h-[72vh] w-full aspect-[4/5] overflow-hidden rounded-2xl md:rounded-[1.5rem] group/portrait"
+            initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: EASE }}
+            style={reduce ? undefined : { scale: portraitScale }}
+          >
             <Image
               src="/emil-portrait.jpg"
               alt="Emil Marinov Portrait"
@@ -22,22 +59,48 @@ export function Hero() {
               sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover object-center filter grayscale contrast-[1.15] brightness-[0.9] transition-transform duration-[1500ms] ease-out hover:scale-105"
             />
-          </div>
+          </motion.div>
 
           {/* Mobile title: stacked 2 lines positioned over the head */}
-          <h1 className="md:hidden absolute inset-x-0 top-[3%] z-20 text-center font-black tracking-tighter leading-[0.85] select-none text-[13vw] sm:text-[12vw] text-white blend-difference pointer-events-none uppercase px-4">
+          <motion.h1
+            className="md:hidden absolute inset-x-0 top-[3%] z-20 text-center font-black tracking-tighter leading-[0.85] select-none text-[13vw] sm:text-[12vw] text-white blend-difference pointer-events-none uppercase px-4"
+            initial={reduce ? false : { opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.25 }}
+          >
             Emil<br /> Marinov
-          </h1>
-        </div>
+          </motion.h1>
+        </motion.div>
 
         {/* Desktop title: single line spanning wider than portrait */}
-        <h1 className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center font-black tracking-tighter leading-none select-none text-[10vw] lg:text-[9.5vw] text-white blend-difference pointer-events-none uppercase whitespace-nowrap">
+        <motion.h1
+          className="hidden md:block absolute left-1/2 top-1/2 z-20 text-center font-black tracking-tighter leading-none select-none text-[10vw] lg:text-[9.5vw] text-white blend-difference pointer-events-none uppercase whitespace-nowrap"
+          initial={reduce ? { x: "-50%", y: "-50%" } : { opacity: 0, x: "-50%", y: "-42%" }}
+          animate={{ opacity: 1, x: "-50%", y: "-50%" }}
+          transition={{ duration: 1, ease: EASE, delay: 0.2 }}
+          style={reduce ? undefined : { marginTop: titleY }}
+        >
           Emil Marinov
-        </h1>
-      </div>
+        </motion.h1>
+      </motion.div>
 
-      {/* Bottom Bar: Socials (Left) + Titles (Right) */}
+      {/* Bottom Bar: Socials (Left) + Scroll Hint (Center) + Titles (Right) */}
       <div className="relative z-30 flex items-end justify-between gap-3 mt-auto w-full max-w-7xl mx-auto">
+
+        {/* Scroll hint — center, fades on first scroll */}
+        <motion.a
+          href="#ueber-mich"
+          aria-label="Zum Profil scrollen"
+          className="hidden md:flex absolute left-0 right-0 bottom-0 mx-auto w-max flex-col items-center gap-2 no-underline text-black/60 hover:text-black transition-colors"
+          style={reduce ? undefined : { opacity: hintOpacity }}
+        >
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em]">
+            Scroll
+          </span>
+          <span className="relative block w-px h-10 bg-black/20 overflow-hidden">
+            <span className="absolute inset-0 bg-[#FF4D2D] animate-scroll-hint" />
+          </span>
+        </motion.a>
 
         {/* Social Icons - horizontal on mobile, vertical on desktop */}
         <div className="flex flex-row md:flex-col gap-2 md:gap-4 text-black flex-shrink-0">
