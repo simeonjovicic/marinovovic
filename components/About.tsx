@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 import { Parallax } from "./Parallax";
 import { CountUp } from "./CountUp";
 import { useLang } from "./LangProvider";
-import { tx, t } from "@/lib/i18n";
+import { tx, t, FULL_NAME } from "@/lib/i18n";
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 20 20" aria-hidden="true" className="btn-icon">
@@ -40,7 +40,7 @@ export function About() {
             <div className="about-photo-card">
               <Image
                 src="/emil-portrait.jpg"
-                alt="Emil Marinov im Porträt"
+                alt={`${FULL_NAME} im Porträt`}
                 width={600}
                 height={780}
                 sizes="(max-width: 899px) 22rem, 24rem"
@@ -48,7 +48,7 @@ export function About() {
             </div>
           </Parallax>
           <div className="about-photo-caption">
-            <span>Emil Marinov</span>
+            <span>{FULL_NAME}</span>
             <small>{t(tr.portraitCaption, lang)}</small>
           </div>
         </Reveal>

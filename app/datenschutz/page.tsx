@@ -3,10 +3,12 @@ import type { Metadata } from "next";
 import { ArrowLeft, Mail } from "lucide-react";
 import { LegalHeader } from "@/components/LegalHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { FULL_NAME } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  title: "Datenschutz · Emil Marinov",
-  description: "Datenschutzerklärung — Emil Marinov, KI-Berater.",
+  // Der Name kommt aus dem title.template im Root-Layout.
+  title: "Datenschutz",
+  description: `Datenschutzerklärung — ${FULL_NAME}, KI-Berater.`,
   robots: { index: false },
 };
 

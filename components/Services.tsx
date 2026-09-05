@@ -6,79 +6,6 @@ import { Reveal } from "./Reveal";
 import { useLang } from "./LangProvider";
 import { tx, t } from "@/lib/i18n";
 
-const SERVICES = [
-  {
-    num: "01",
-    label: "Automation",
-    title: "Prozessautomatisierung mit KI-Agents",
-    text: "Analyse, Konzeption und Umsetzung vollautomatisierter Geschäftsprozesse. Wir identifizieren wiederkehrende Aufgaben, modellieren Agenten-Workflows und integrieren sie in Ihre Systemlandschaft.",
-    short:
-      "Wiederkehrende Aufgaben durch mehrstufige KI-Agents automatisieren — von der Analyse bis zur Integration.",
-    features: [
-      "Identifikation automatisierbarer Prozesse",
-      "Mehrstufige Agenten-Workflows mit klaren Übergaben",
-      "Integration in bestehende ERP- und CRM-Systeme",
-      "Monitoring, Logging und Failover-Strategien",
-    ],
-  },
-  {
-    num: "02",
-    label: "Custom AI",
-    title: "Maßgeschneiderte KI-Lösungen & RAG-Systeme",
-    text: "Individuelle KI-Applikationen — von der Retrieval-Augmented-Generation-Architektur über Vektor-Datenbanken bis zur produktiven Bereitstellung. Sicher, dokumentiert, wartbar.",
-    short:
-      "Eigene RAG-Systeme auf Ihren Daten: vom Prototyp bis zur sicheren Bereitstellung.",
-    features: [
-      "Retrieval-Augmented Generation auf eigenen Daten",
-      "Vektor-Datenbank-Auswahl und -Integration",
-      "Evaluation, Guardrails und Prompt-Strategien",
-      "Sichere Bereitstellung in der eigenen Infrastruktur",
-    ],
-  },
-  {
-    num: "03",
-    label: "Enablement",
-    title: "Schulungen zu Künstlicher Intelligenz",
-    text: "Praxisnahe Workshops für Fach- und Führungskräfte. Von den Grundlagen über Prompt Engineering bis zur strategischen Einordnung von KI im Unternehmen.",
-    short:
-      "Praxisnahe KI-Workshops für Fach- und Führungskräfte — Grundlagen bis Strategie.",
-    features: [
-      "Grundlagen-Sessions für gemischte Teams",
-      "Prompt Engineering mit echten Use Cases",
-      "Strategische Einordnung von KI im Unternehmen",
-      "Hands-on Übungen statt Folien-Schlachten",
-    ],
-  },
-  {
-    num: "04",
-    label: "Workflow",
-    title: "Schulungen zur Prozessautomatisierung mit n8n",
-    text: "Automatisierung von Datenpipelines und Geschäftsprozessen mit n8n. Hands-on, mit eigenen Use Cases und konkreten Beispielen aus der Teilnehmerpraxis.",
-    short:
-      "n8n-Schulungen für Datenpipelines und Automatisierung — hands-on mit echten Use Cases.",
-    features: [
-      "n8n-Grundlagen und Architektur-Konzepte",
-      "Eigene Workflows live im Workshop bauen",
-      "Anbindung von APIs, Datenbanken und LLMs",
-      "Self-hosting versus Cloud — Entscheidungshilfen",
-    ],
-  },
-  {
-    num: "05",
-    label: "Begleitung",
-    title: "Individuelle Beratung & Projektbegleitung",
-    text: "Maßgeschneiderte Beratung über die gesamte Projektdauer — vom Erstgespräch über Architektur-Reviews bis zur begleitenden Umsetzung. Auch als externer Sparringspartner für interne Teams.",
-    short:
-      "Beratung & Sparring über die gesamte Projektlaufzeit — auch als externer Reviewer.",
-    features: [
-      "Architektur-Reviews und Sparring",
-      "Externe Zweitmeinung für interne Teams",
-      "Begleitung über die gesamte Projektlaufzeit",
-      "Klare Empfehlungen statt Buzzword-Bingo",
-    ],
-  },
-];
-
 export function Services() {
   const { lang } = useLang();
   const tr = tx.services;
@@ -157,10 +84,7 @@ export function Services() {
             </h2>
           </Reveal>
 
-          <Reveal as="p" className="section-copy">
-            <span className="hide-mobile">{t(tr.lead, lang)}</span>
-            <span className="show-mobile">{t(tr.leadMobile, lang)}</span>
-          </Reveal>
+          <Reveal as="p" className="section-copy">{t(tr.lead, lang)}</Reveal>
         </div>
 
         <div className="service-list" ref={listRef}>
@@ -185,10 +109,7 @@ export function Services() {
 
                 <div className="service-content">
                   <Reveal as="h3">{t(s.title, lang)}</Reveal>
-                  <Reveal>
-                    <p className="hide-mobile">{t(s.text, lang)}</p>
-                    <p className="show-mobile">{t(s.short, lang)}</p>
-                  </Reveal>
+                  <Reveal as="p">{t(s.text, lang)}</Reveal>
                   <Reveal as="ul" className="service-features">
                     {t(s.features, lang).map((f) => (
                       <li key={f}>
@@ -214,6 +135,17 @@ export function Services() {
             />
           ))}
         </div>
+
+        <Reveal className="scope-block">
+          <h3 className="scope-title">{t(tr.scope.title, lang)}</h3>
+          <p className="scope-text">{t(tr.scope.text, lang)}</p>
+          <ul className="scope-areas">
+            {t(tr.scope.areas, lang).map((area) => (
+              <li key={area}>{area}</li>
+            ))}
+          </ul>
+          <p className="scope-note">{t(tr.scope.note, lang)}</p>
+        </Reveal>
       </div>
     </section>
   );

@@ -22,13 +22,24 @@ export function References() {
           <Reveal className="reference-summary">
             <span className="ref-kicker">{t(tr.summaryKicker, lang)}</span>
             <p className="ref-headline">{t(tr.summaryHeadline, lang)}</p>
-            <p className="ref-lead">
-              <span className="hide-mobile">{t(tr.summaryLead, lang)}</span>
-              <span className="show-mobile">{t(tr.summaryLeadMobile, lang)}</span>
-            </p>
+            <p className="ref-lead">{t(tr.summaryLead, lang)}</p>
             <div className="ref-meta">
               <span className="ref-dot" aria-hidden="true" />
               <span>{t(tr.summaryMeta, lang)}</span>
+            </div>
+
+            <div className="ref-named">
+              <span className="ref-named-label">{t(tr.namedLabel, lang)}</span>
+              <ul>
+                {tr.named.map((p) => (
+                  <li key={p.name}>
+                    <a href={p.url} target="_blank" rel="noopener noreferrer">
+                      {p.name}
+                    </a>
+                    <small>{t(p.role, lang)}</small>
+                  </li>
+                ))}
+              </ul>
             </div>
           </Reveal>
 

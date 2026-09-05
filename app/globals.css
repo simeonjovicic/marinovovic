@@ -334,6 +334,13 @@ body {
   font-size: 1.0625rem;
   font-weight: 600;
   color: var(--ink);
+  white-space: nowrap;
+}
+/* Mit Titel ist der Name länger — auf schmalen Screens leicht verkleinern,
+   damit er neben dem Burger-Menü nicht umbricht. */
+@media (max-width: 400px) {
+  .brand-name { font-size: 0.9375rem; }
+  .brand { gap: 0.5rem; }
 }
 
 .primary-nav ul { display: flex; align-items: center; gap: 2rem; }
@@ -2309,4 +2316,281 @@ h2.faq-title,
 }
 @media (max-height: 640px) {
   .scroll-hint { display: none; }
+}
+
+/* =================================================================
+   Geschäftsbereiche — Abschluss der Leistungen-Sektion
+   ================================================================= */
+.scope-block {
+  margin-top: 4rem;
+  padding: 2.25rem 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  text-align: center;
+}
+@media (min-width: 760px) {
+  .scope-block { padding: 2.75rem 3rem; }
+}
+.scope-title {
+  font-family: var(--font-serif), var(--font-serif-stack);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.scope-text {
+  max-width: 46rem;
+  margin: 0.85rem auto 0;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.scope-areas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+}
+.scope-areas li {
+  padding: 0.45rem 1rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.scope-note {
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--ink-mute);
+}
+
+/* =================================================================
+   KI-Betriebssystem — Schichtenmodell
+   ================================================================= */
+.layer-stack {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 3rem;
+  counter-reset: layer;
+}
+.layer {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+  padding: 1.4rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: border-color 0.25s var(--ease),
+              transform 0.25s var(--ease);
+}
+/* Nach unten leicht eingerückt: macht den Stapelcharakter sichtbar,
+   ohne dass es auf schmalen Screens auseinanderfällt. */
+@media (min-width: 900px) {
+  .layer:nth-child(2) { margin-inline: 1.5rem 0; }
+  .layer:nth-child(3) { margin-inline: 3rem 0; }
+  .layer:nth-child(4) { margin-inline: 4.5rem 0; }
+  .layer:nth-child(5) { margin-inline: 6rem 0; }
+}
+.layer:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .layer:hover { transform: none; }
+}
+.layer-num {
+  font-family: var(--font-serif), var(--font-serif-stack);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.5;
+}
+.layer-body h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.35rem;
+}
+.layer-body p {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.layer-governance {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+  margin-top: 1.75rem;
+  padding: 1.5rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+}
+.layer-governance-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--accent);
+}
+.layer-governance h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.35rem;
+}
+.layer-governance p {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.layer-cta {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+/* =================================================================
+   Stimmen — Endlos-Carousel
+   Gescrollt wird per JS (siehe Testimonials.tsx), nicht per transform:
+   so bleibt die Leiste mit Finger und Tastatur bedienbar.
+   ================================================================= */
+.marquee {
+  position: relative;
+  margin-top: 2.5rem;
+  /* Karten laufen an beiden Rändern weich aus statt hart abzuschneiden. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4rem,
+                                      #000 calc(100% - 4rem), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4rem,
+                              #000 calc(100% - 4rem), transparent);
+}
+.marquee-rail {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.marquee-rail::-webkit-scrollbar { display: none; }
+.marquee-rail:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  padding-inline: 1.25rem;
+}
+.marquee-track > .testimonial { margin-right: 0.85rem; }
+
+.testimonial {
+  display: flex;
+  flex: 0 0 17.5rem;
+  width: 17.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  transition: border-color 0.25s var(--ease);
+}
+.testimonial:hover { border-color: var(--accent); }
+.testimonial figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 1.2rem;
+  width: 100%;
+}
+.testimonial blockquote {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+/* Das Anführungszeichen läuft im Text mit, statt eine eigene Zeile
+   zu beanspruchen — spart pro Karte gut 3rem Höhe. */
+.testimonial-mark {
+  display: inline;
+  vertical-align: -0.1em;
+  margin-right: 0.3rem;
+  color: var(--accent);
+}
+.testimonial figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.testimonial-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.testimonial-person {
+  display: grid;
+  min-width: 0;
+}
+.testimonial-person strong {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.testimonial-person small {
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+/* =================================================================
+   Namentliche Referenzen im Netzwerk-Block
+   ================================================================= */
+.ref-named {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.ref-named-label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.ref-named ul {
+  display: grid;
+  gap: 0.75rem;
+}
+.ref-named li { display: grid; }
+.ref-named a {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line-soft);
+  text-underline-offset: 3px;
+  transition: color 0.15s var(--ease),
+              text-decoration-color 0.15s var(--ease);
+}
+.ref-named a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+.ref-named small {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLang } from "./LangProvider";
-import { tx, t, LANG_LABELS } from "@/lib/i18n";
+import { tx, t, LANG_LABELS, FULL_NAME } from "@/lib/i18n";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -21,9 +21,9 @@ export function SiteHeader() {
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="container nav-inner">
-        <a href="#top" className="brand" aria-label="Startseite Emil Marinov">
+        <a href="#top" className="brand" aria-label={`Startseite ${FULL_NAME}`}>
           <span className="brand-mark" aria-hidden="true">EM</span>
-          <span className="brand-name">Emil Marinov</span>
+          <span className="brand-name">{FULL_NAME}</span>
         </a>
 
         <button

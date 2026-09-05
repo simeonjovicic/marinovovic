@@ -3,6 +3,7 @@ import { Inter, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { LangProvider } from "@/components/LangProvider";
 import { SkipLink } from "@/components/SkipLink";
+import { FULL_NAME } from "@/lib/i18n";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,15 +20,15 @@ const sourceSerif = Source_Serif_4({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kiprofessor.at"),
   title: {
-    default: "Emil Marinov · KI-Berater für Unternehmen",
-    template: "%s · Emil Marinov",
+    default: `${FULL_NAME} · KI-Berater für Unternehmen`,
+    template: `%s · ${FULL_NAME}`,
   },
   description:
-    "Emil Marinov – KI-Berater, Dozent und Professor. Beratung, Schulung und Umsetzung von KI-Projekten, RAG-Systemen und Prozessautomatisierung für Unternehmen.",
-  applicationName: "Emil Marinov · KI-Beratung",
-  authors: [{ name: "Emil Marinov", url: "https://kiprofessor.at" }],
-  creator: "Emil Marinov",
-  publisher: "Emil Marinov",
+    `${FULL_NAME} – KI-Berater, Dozent und Professor. Beratung, Schulung und Umsetzung von KI-Projekten, RAG-Systemen und Prozessautomatisierung für Unternehmen.`,
+  applicationName: `${FULL_NAME} · KI-Beratung`,
+  authors: [{ name: FULL_NAME, url: "https://kiprofessor.at" }],
+  creator: FULL_NAME,
+  publisher: FULL_NAME,
   keywords: [
     "KI-Berater",
     "KI-Beratung",
@@ -67,8 +68,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_AT",
     url: "https://kiprofessor.at",
-    siteName: "Emil Marinov · KI-Beratung",
-    title: "Emil Marinov · KI-Berater für Unternehmen",
+    siteName: `${FULL_NAME} · KI-Beratung`,
+    title: `${FULL_NAME} · KI-Berater für Unternehmen`,
     description:
       "Beratung, Schulung und Umsetzung von KI-Projekten — akademisch fundiert, praktisch anwendbar.",
     images: [
@@ -76,13 +77,13 @@ export const metadata: Metadata = {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "Emil Marinov · KI-Berater für Unternehmen",
+        alt: `${FULL_NAME} · KI-Berater für Unternehmen`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Emil Marinov · KI-Berater für Unternehmen",
+    title: `${FULL_NAME} · KI-Berater für Unternehmen`,
     description:
       "Beratung, Schulung und Umsetzung von KI-Projekten — akademisch fundiert, praktisch anwendbar.",
     images: ["/og-image.svg"],

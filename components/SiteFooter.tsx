@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLang } from "./LangProvider";
-import { tx, t } from "@/lib/i18n";
+import { tx, t, FULL_NAME } from "@/lib/i18n";
 
 export function SiteFooter() {
   const { lang } = useLang();
@@ -13,7 +13,7 @@ export function SiteFooter() {
         <div className="footer-brand">
           <span className="brand-mark" aria-hidden="true">EM</span>
           <div>
-            <strong>Emil Marinov</strong>
+            <strong>{FULL_NAME}</strong>
             <p>{t(tx.about.portraitCaption, lang)}</p>
           </div>
         </div>

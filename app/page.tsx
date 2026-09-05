@@ -2,7 +2,9 @@ import { SiteHeader }      from "@/components/SiteHeader";
 import { Hero }            from "@/components/Hero";
 import { About }           from "@/components/About";
 import { Services }        from "@/components/Services";
+import { AiOs }            from "@/components/AiOs";
 import { Showcase }        from "@/components/Showcase";
+import { Testimonials }    from "@/components/Testimonials";
 import { References }      from "@/components/References";
 import { Domains }         from "@/components/Domains";
 import { FAQ }             from "@/components/FAQ";
@@ -18,7 +20,9 @@ export default function HomePage() {
         <Hero />
         <About />
         <Services />
+        <AiOs />
         <Showcase />
+        <Testimonials />
         <References />
         <Domains />
         <FAQ />
