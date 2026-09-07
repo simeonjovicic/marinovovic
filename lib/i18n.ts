@@ -528,10 +528,15 @@ export const tx = {
         url: "https://hango.at",
         role: { de: "Webdesign & digitale Gestaltung", en: "Web design & digital production" } as S,
       },
+      {
+        name: "Weimer.ai",
+        url: "https://weimer.ai",
+        role: { de: "KI-Produkte für Online-Marken", en: "AI products for online brands" } as S,
+      },
     ],
     summaryMeta: {
-      de: "4 Bereiche · DACH-Raum",
-      en: "4 areas · DACH region",
+      de: "4 Bereiche · DACH & international",
+      en: "4 areas · DACH & international",
     } as S,
     items: [
       {
